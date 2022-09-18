@@ -1,0 +1,58 @@
+\begin{small}
+\begin{center}
+	\begin{tikzpicture}
+		% Place nodes
+		\node [rectangle, draw, fill=green!20, text width=10em, text centered, rounded corners, minimum height=3em] (init) {Given ODE/System of ODEs};
+		\node [decision, right of=init, xshift=12em] (allfo) {All first order?};
+		\node [block, right of=allfo, xshift=12em] (transform) {Transform system};
+		\node [decision, below of=allfo, yshift=-7em] (constcoeff) {Constant Coefficients?};
+		\node [draw, ellipse,fill=red!20, node distance=3cm, minimum height=2em, text width=2em, text centered, left of=constcoeff] (cry) {Cry};
+		\node [block, below of=constcoeff, yshift=-4em] (xtp) {Homogeneous solution for $\xtp = A\xt$};
+		
+		\node [decision, below of=xtp, yshift=-4em] (eigs) {Eigenvalues of $A$ are...};
+		\node [decision, below of = eigs, yshift=-7em] (eigsrep) {Full set of eigenvectors?};
+		\node [block, left of = eigsrep, xshift=-12em] (eigsdiscalc) {Calculate eigenvalues $r_j$ and eigenvectors $\xib_j$};
+		\node [block, below of = eigsrep, yshift=-4em] (geneigs) {Generalised Eigenvetors};
+		\node [block, left of=geneigs, xshift=-12em] (eigsdissol) {$\xt = \sum_j c_je^{r_jt}\xib_j$};
+		\node [block, right of = eigsrep, xshift=12em] (eigscomcalc) {Calculate e'values $r_j$, e'vectors $\xib_j$, take solution $e^{r_jt}\xib_j$};
+		\node [block, right of=geneigs, xshift=12em] (eigscomsol) {Real and Imaginary Parts};
+		
+		\node [decision, below of = geneigs, yshift=-4em] (inhomo) {Inhomogeneous?};
+		\node [block, below of = inhomo, yshift=-4em] (diag) {Diagonalisation};
+		\node [block, left of = diag, xshift=-12em] (undetcoeff) {Undetermined Coefficients};
+		\node [block, right of = diag, xshift=12em] (varparam) {Variation of Parameters};
+		\node [cloud, below of = diag, yshift=-4em] (gensol) {General solution = homogeneous soln + particular soln};
+		
+		% Draw edges
+		\path [line] (init) -- (allfo);
+		\path [line] (allfo) -- (transform);
+		\path [line] (allfo) -- (constcoeff);
+		\path [line] (allfo) -- node [yshift=0.74em] {No} (transform);
+		\path [line] (allfo) -- node [xshift=1em] {Yes} (constcoeff);
+		
+		\path [line] (transform) |- (constcoeff);
+		\path [line] (constcoeff) -- node [yshift=0.74em] {No} (cry);
+		\path [line] (constcoeff) -- node [xshift=1em] {Yes} (xtp);
+		
+		\path [line] (xtp) -- (eigs);
+		\path [line] (eigs) -| node [near start, yshift=0.74em] {Distinct} (eigsdiscalc);
+		\path [line] (eigsdiscalc) -- (eigsdissol);
+		\path [line] (eigs) -- node [xshift=2.4em] {Repeated} (eigsrep);
+		\path [line] (eigs) -| node [near start, yshift=0.74em] {Complex} (eigscomcalc);
+		\path [line] (eigscomcalc) -- (eigscomsol);
+		\path [line] (eigsrep) -- node [yshift=-0.4em, xshift=1em] {Yes} (eigsdissol);
+		\path [line] (eigsrep) -- node [xshift=1em] {No} (geneigs);
+		
+		\path [line] (eigsdissol) |- (inhomo);
+		\path [line] (geneigs) -- (inhomo);
+		\path [line] (eigscomsol) |- (inhomo);
+		
+		\path [line] (inhomo) -- node [align=left, xshift=-4em] {$\gt$ is exponential-\\polynomial} (undetcoeff);
+		\path [line] (inhomo) -- node [align=left, xshift=6em] {Non-constant matrix} (varparam);
+		\path [line] (inhomo) -- (diag);
+		\path [line] (undetcoeff) -- (gensol);
+		\path [line] (diag) -- (gensol);
+		\path [line] (varparam) -- (gensol);
+	\end{tikzpicture}
+\end{center}
+\end{small}

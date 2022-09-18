@@ -1,0 +1,25 @@
+\documentclass[11pt,class=article, crop=false]{standalone}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+\newcommand{\vb}[1]{\textbf{#1}}
+\newcommand{\vbx}{\textit{\textbf{x}}}
+\newcommand{\xt}{\vbx(t)}
+\newcommand{\xtp}{\vbx'(t)}
+\newcommand{\xib}{\boldsymbol{\xi}}
+\newcommand{\gt}{\vb{g}(t)}
+
+\pagestyle{empty}
+
+\begin{document}
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, text width=7em, text badly centered, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, text width=12em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [ellipse, draw, fill=red!20, text width=9em, text centered, minimum height=3em]
+
+\include{flowchart.tex}
+
+\end{document}

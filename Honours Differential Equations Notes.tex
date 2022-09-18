@@ -1,0 +1,148 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{tabularx}
+\usepackage[parfill]{parskip}
+\usepackage[shortlabels]{enumitem}
+\usepackage{commath}
+\usepackage[margin=1cm]{caption}
+\usepackage{subcaption}
+\usepackage[normalem]{ulem}
+\usepackage{here}
+\usepackage[makeroom]{cancel}
+\usepackage{bm}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+
+% Reduces file size
+%\pdfminorversion=5 
+%\pdfcompresslevel=9
+%\pdfobjcompresslevel=2
+
+\usepackage{xcolor}
+\hypersetup{
+	colorlinks = true,
+	urlcolor = blue, 
+	linkcolor = blue,
+	citecolor = blue
+}
+
+\usepackage{graphicx}
+\graphicspath{{./img/}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{remark}{Remark}
+\newtheorem{eg}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\vb}[1]{\textbf{#1}}
+\newcommand{\vbx}{\bm{x}}
+\newcommand{\xt}{\vbx(t)}
+\newcommand{\xtp}{\vbx'(t)}
+\newcommand{\xta}{\vbx_{\ast}}
+\newcommand{\xib}{\bm{\xi}}
+\newcommand{\etab}{\bm{\eta}}
+\newcommand{\sfrac}[2]{{}^{#1}{\mskip -5mu/\mskip -3mu}_{#2}}
+\newcommand{\gt}{\vb{g}(t)}
+\newcommand{\mat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\p}{\partial}
+\newcommand{\Lap}[1]{\mathcal{L}\{#1\}}
+\newcommand{\Lapb}[1]{\mathcal{L}\left\{#1\right\}}
+\newcommand{\Lapinv}[1]{\mathcal{L}^{-1}\{#1\}}
+\newcommand{\Lapinvb}[1]{\mathcal{L}^{-1}\left\{#1\right\}}
+
+% Define block styles for tikz flowchart
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, text width=7em, text badly centered, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, text width=12em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [ellipse, draw, fill=red!20, text width=9em, text centered, minimum height=3em]
+
+\title{Honours Differential Equations}
+\author{Lee Suddaby and Niharika Reddy}
+
+%\includeonly{sections/revision.tex}
+
+\begin{document}
+\maketitle
+
+{\small
+	\noindent\vb{Systems of First-Order Linear ODEs}\\
+	Introduction to systems of first-order ODEs and linear ODEs, solving homogeneous linear systems with constant coefficients in the case of distinct, repeated, and complex eigenvalues, fundamental and exponential matrices, solving non-homogeneous systems of ODEs via diagonalisation, method of undetermined coefficients, and variation of parameters.
+	
+	\vspace{10pt}
+	\noindent\vb{Numerical Methods}\\
+	Forward and backward Euler's method, Heun's method, Runge-Kutta method, Adams-Bashforth method, discussion of errors.
+	
+	\vspace{10pt}
+	\noindent\vb{Non-linear Systems of ODEs}\\
+	Linearisation of non-linear systems near a critical point, classification and stability of CPs in linear and non-linear systems, example involving damped pendulum, finding implicit trajectories, Lotka-Volterra model for predator and prey populations, non-linear methods: Lyapunov (in)stability and Poincar\'{e}-Bendixson Theorem.
+	
+	\vspace{10pt}
+	\noindent\vb{Partial Differential Equations \& Fourier Series}\\
+	Boundary value problems and boundary eigenvalue problems, derivation of Euler-Fourier formulas for Fourier series coefficients, Fourier Convergence Theorem, error occurred in truncated Fourier series and Gibbs Phenomenon, complex form of Fourier series, series with odd and even functions, Parseval's Theorem.
+	
+	\vspace{10pt}
+	\noindent\vb{PDEs by Separation of Variables}\\
+	Introduction to solving PDEs by separation of variables, relation to Fourier series, solving the heat equation, including with non-homogeneous or no-flux boundary conditions, solving the wave equation, and solving Laplace's equation.
+	
+	\vspace{10pt}
+	\noindent\vb{Sturm-Liouville Theory}\\
+	Introduction and motivation to Sturm-Liouville problems, SL eigenvalues problems, expanding functions in eigenfunctions, convergence of expansions, applications to non-homogeneous BVPs and linear PDEs, transforming ODEs to SL form, singular SL problems and the Bessel equation, solving the wave equation in 2D.
+	
+	\vspace{10pt}
+	\noindent\vb{The Laplace Transform}\\
+	Introduction to the Laplace transform, calculating the Laplace transform for various simple functions and products, using the Laplace transform to solve second-order linear ODEs, and ODEs with discontinuous or impulsive forcing, convolutions, application of convolution theorem to ODEs and integral equations.
+
+}
+
+\pagebreak
+\tableofcontents
+
+
+\include{sections/intro.tex}
+\include{sections/revision.tex}
+
+\include{sections/sec1.tex}
+
+\include{flowchart/flowchart.tex}
+
+\include{sections/sec2.tex}
+\include{sections/sec3.tex}
+\include{sections/sec4.tex}
+\include{sections/sec5.tex}
+\include{sections/sec6.tex}
+\include{sections/sec7.tex}
+
+
+\begin{thebibliography}{9}
+	\addcontentsline{toc}{section}{References}
+	\bibitem{boyce}
+	Boyce, William E. (2017). ``Boyce's Elementary Differential Equations and Boundary Value Problems.'' Wiley-Blackwell. ISBN: 9781119382874.
+	
+	\bibitem{numgraph}
+	Mohanta, Rishika and Assisi, Collins (2019). ``Parallel scalable simulations of biological neural networks using TensorFlow: A beginner's guide.'' URL: \url{https://arxiv.org/abs/1906.03958v1}.
+	
+	\bibitem{limitcycles}
+	Sun, X. and Lei, J. (2013). ``Limit Cycle.'' In: Dubitzky, W., Wolkenhauer, O., Cho, K. H., and Yokota, H. (eds) ``Encyclopedia of Systems Biology.'' Springer, New York, NY. URL: \url{https://doi.org/10.1007/978-1-4419-9863-7_533}.
+	
+	\bibitem{olver}
+	Olver, F. W. J. (1972). ``Chapter 9. Bessel Functions of Integer Order'' In: Abramowitz, Milton and Stegun, Irene Ann, (eds) ``Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables.'' p. 361. Dover Publications. ISBN 9780486612720. URL: \url{https://personal.math.ubc.ca/~cbm/aands/page_361.htm}.
+	
+	\bibitem{watson}
+	Whittaker, E. and Watson, G. (1996). ``Bessel Functions.'' In ``A Course of Modern Analysis.'' pp. 355-385. Cambridge: Cambridge University Press. URL: \url{https://doi.org/10.1017/CBO9780511608759.018}.
+\end{thebibliography}
+
+\end{document}
