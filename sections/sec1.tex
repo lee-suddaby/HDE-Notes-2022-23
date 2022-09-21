@@ -1,10 +1,68 @@
 \section{Systems of First-Order Linear Equations}\label{sec:firstorder}
 
-\subsection{Introduction to Systems of 1st order ODEs}
+\subsection{Classification of Differential Equations}
+
+\begin{definition}
+	Given some independent real variables $x_1, x_2, \ldots, x_n$ and some real-valued functions $y_1(x_j), y_2(x_j), \ldots, y_p(x_j)$, a system of differential equations is a system of equations relating them involving the derivatives $\p_j y_r, \p_i\p_j y_s, \ldots$ of the dependent variables:
+	\[
+		\mathcal{F}[y_r, \p_j y_r, \ldots, x_j] = 0, \quad s = 1, \ldots, p.
+	\]
+\end{definition}
+
+\begin{eg}
+	Some examples of differential equations are:
+	\begin{equation*}
+	\begin{split}
+		y'(x) = 0 \\
+		\ddot{y}(t) - \omega^2 y(t) = 0 \\
+		\begin{cases} \dot{x}_1(t) = x_2(t) \\ \dot{x}_2(t) = -\sin(x_1(t)) \end{cases} \\
+		(\p_x y)^2 + \tanh{x}\p_z y = e^{2x+z}.
+	\end{split}
+	\end{equation*}
+\end{eg}
+
+Differential equations may depend on \textbf{parameters}, like the real parameter $\omega$ in the second example. It is important to distinguish them from the independent variables. This is usually clear from the context, but the defining feature of a parameter is that the differential equation does not involve any derivatives with respect to it. Nonetheless, solutions of differential equations depend on the parameters, and understanding this parametric dependence is an important part of analysing differential equations.
+
+\subsubsection{ODEs vs. PDEs}
+
+\begin{definition}
+	Given the two sets $\{x_1, x_2, \ldots, x_n\}$ and $\{y_1(x_j), y_2(x_j), \ldots, y_p(x_j)\}$:
+	\begin{enumerate}
+		\item If $n=1$ (i.e. there is only one independent variable), we have an Ordinary Differential Equation (ODE), e.g. $\ddot{y}(t) - \omega^2 y(t) = 0$.
+		\item If $n>1$ (i.e. more than one independent variable), we have a Partial Differential Equation (PDE), e.g. $(\p_x y)^2 + \tanh{x}\p_z y = e^{2x+z}$.
+	\end{enumerate}
+	If there is more than equation involving functions and there derivatives, we have a system of ODEs or PDEs. For example,
+	\[
+		\begin{cases} \dot{x}_1(t) = x_2(t) \\ \dot{x}_2(t) = -\sin(x_1(t)) \end{cases}
+	\]
+	is a system of two ODEs, since there are two equations and one independent variable, $t$.
+\end{definition}
+
+\subsubsection{Linear vs. Non-linear}
+	
+Consider ODEs with a single function of one variable $y(x)$. By collecting all the $y$-dependent terms, we can write the ODE as a condition on a (possibly $x$-dependent) map $L$ acting on $y$,
+\[
+	L[y] = f
+\]
+for some real function $f$. For example, $y''(x) - xy(x) = x^2$ corresponds to $L[y] = f$ with $L \equiv \frac{d^2}{dx^2} - x$ and $f(x) = x^2$.
+
+\begin{definition}
+	We say and ODE is \textbf{linear} is the associated map $L$ is linear, i.e. if it satisfies the property
+	\[
+		L[a_1 y_1 + a_2 y_2] = a_1 L[y_1] + a_2 L[y_2] \quad \forall a_1,a_2 \in \R
+	\]
+	and for any pair of functions $y_1$, $y_2$.
+\end{definition}
+
+In simple terms, linear ODEs and PDEs are those where the dependent variables $y_1(x_j)$ appear linearly, i.e. raised to the power of one. For example, $y''(x) + x^2 y'(x) = e^{2x}$ is a linear ODE, while $y'(x) + y(x)^2 = -\sin{x}$ is non-linear as it contains the $y(x)^2$ term.
+
+
+
+\subsection{Introduction to Systems of first-order ODEs}
 
 In a system of first-order differential equations, we generally consider the independent variable $t$ and a set of dependent variables $x_i(t)$, established and connected as follows:
 \[
-x_i'(t) = F_i(x_1, x_2, \ldots, x_n, t), \quad i = 1, 2, \ldots, n
+	x_i'(t) = F_i(x_1, x_2, \ldots, x_n, t), \quad i = 1, 2, \ldots, n
 \]
 
 A system is said to be \vb{autonomous} if $\p_t F_i = 0$ for all $i$ (in other words, the equations are independent of $t$).
@@ -53,6 +111,14 @@ The general method for transforming an arbitrary $n$th order ODE $y^{(n)}(t) = F
 		x_n' &= F(x_1, \ldots, x_{n-1}, t).
 	\end{align*}
 \end{enumerate}
+
+\begin{exercise}
+	Consider the second-order ODE with parametric dependence on $m, \gamma \in \R$:
+	\[
+		mu'' + \gamma u' + ky = F(t).
+	\]
+	Convert this into a system of first-order ODEs.
+\end{exercise}
 
 \subsubsection{Geometric Interpretation}
 
@@ -271,7 +337,7 @@ This holds provided that all eigenvalues are distinct ($r_i \neq r_j$ for $i \ne
 	
 	Putting this together, we may write the general solution as 
 	\[
-	\xt = c_1 e^{-t}\mat{1 \\ 0 \\ -1} + c_2 e^{-t} \mat{0 \\ 1 \\ -1} + c_2 e^{2t}\mat{1 \\ 1 \\ 1}.
+	\xt = c_1 e^{-t}\mat{1 \\ 0 \\ -1} + c_2 e^{-t} \mat{0 \\ 1 \\ -1} + c_3 e^{2t}\mat{1 \\ 1 \\ 1}.
 	\]
 \end{eg}
 
@@ -319,16 +385,16 @@ In other words, the real and imaginary parts of $\vbx_1(t)$ may be written as a 
 	
 	We now find the eigenvector associated with the eigenvalue $r = -\frac12 + i$:
 	\[
-	\mat{-i & 1 \\ -1 & -1}\xib = 0 \implies \xib_1 = \mat{1 \\ i}.
+	\mat{-i & 1 \\ -1 & -i}\xib = 0 \implies \xib_1 = \mat{1 \\ i}.
 	\]
-	Thus, the general solution to the system is
+	The eigenvector $\xib_2$ is the conjugate of $\xib_1$, so the general solution to the system is
 	\[
 	\xt = c_1 e^{-t/2 + it}\mat{1 \\ i} + c_2 e^{-t/2 - it}\mat{1 \\ -i}.
 	\]
 	
 	However, we would rather use $\widetilde{\vbx}_1 = \Re(\vbx_1(t))$ and $\widetilde{\vbx}_2 = \Im(\vbx_1(t))$, so we write
 	\begin{align*}
-		\vbx_i(t) = e^{-t/2 + it}\mat{1 \\ i} &= e^{-t/2}(\cos t + i\sin t)\mat{1 \\ i} \\
+		\vbx_1(t) = e^{-t/2 + it}\mat{1 \\ i} &= e^{-t/2}(\cos t + i\sin t)\mat{1 \\ i} \\
 		&= e^{-t/2}\mat{\cos t + i\sin t \\ i\cos t -\sin t}
 	\end{align*}
 	Taking the real and imaginary parts of this solution yields
