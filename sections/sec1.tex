@@ -5,9 +5,11 @@
 \begin{definition}
 	Given some independent real variables $x_1, x_2, \ldots, x_n$ and some real-valued functions $y_1(x_j), y_2(x_j), \ldots, y_p(x_j)$, a system of differential equations is a system of equations relating them involving the derivatives $\p_j y_r, \p_i\p_j y_s, \ldots$ of the dependent variables:
 	\[
-		\mathcal{F}[y_r, \p_j y_r, \ldots, x_j] = 0, \quad s = 1, \ldots, p.
+		\mathcal{F}_s[y_r, \p_j y_r, \ldots, x_j] = 0, \quad s = 1, \ldots, p.
 	\]
 \end{definition}
+
+In other words, a differential equation is simply an equation relating a function and its derivatives.
 
 \begin{eg}
 	Some examples of differential equations are:
@@ -21,15 +23,15 @@
 	\end{equation*}
 \end{eg}
 
-Differential equations may depend on \textbf{parameters}, like the real parameter $\omega$ in the second example. It is important to distinguish them from the independent variables. This is usually clear from the context, but the defining feature of a parameter is that the differential equation does not involve any derivatives with respect to it. Nonetheless, solutions of differential equations depend on the parameters, and understanding this parametric dependence is an important part of analysing differential equations.
+Differential equations may depend on \textbf{parameters}, like the real parameter $\omega$ in the second example. It is important to distinguish them from the independent variables (such as $t$ in the same example). This is usually clear from the context, but the defining feature of a parameter is that the differential equation does not involve any derivatives with respect to it. Nonetheless, solutions of differential equations depend on the parameters, and understanding this parametric dependence is an important part of analysing differential equations.
 
 \subsubsection{ODEs vs. PDEs}
 
 \begin{definition}
 	Given the two sets $\{x_1, x_2, \ldots, x_n\}$ and $\{y_1(x_j), y_2(x_j), \ldots, y_p(x_j)\}$:
 	\begin{enumerate}
-		\item If $n=1$ (i.e. there is only one independent variable), we have an Ordinary Differential Equation (ODE), e.g. $\ddot{y}(t) - \omega^2 y(t) = 0$.
-		\item If $n>1$ (i.e. more than one independent variable), we have a Partial Differential Equation (PDE), e.g. $(\p_x y)^2 + \tanh{x}\p_z y = e^{2x+z}$.
+		\item If $n=1$ (i.e. there is only one independent variable), we have an Ordinary Differential Equation (ODE) containing only ordinary derivatives, e.g. $\ddot{y}(t) - \omega^2 y(t) = 0$. 
+		\item If $n>1$ (i.e. more than one independent variable), we have a Partial Differential Equation (PDE) containing partial derivatives, e.g. $(\p_x y)^2 + \tanh{x}\p_z y = e^{2x+z}$.
 	\end{enumerate}
 	If there is more than equation involving functions and there derivatives, we have a system of ODEs or PDEs. For example,
 	\[
@@ -47,25 +49,34 @@ Consider ODEs with a single function of one variable $y(x)$. By collecting all t
 for some real function $f$. For example, $y''(x) - xy(x) = x^2$ corresponds to $L[y] = f$ with $L \equiv \frac{d^2}{dx^2} - x$ and $f(x) = x^2$.
 
 \begin{definition}
-	We say and ODE is \textbf{linear} is the associated map $L$ is linear, i.e. if it satisfies the property
+	We say and ODE is \textbf{linear} if the associated map $L$ is linear, i.e. if it satisfies the property
 	\[
 		L[a_1 y_1 + a_2 y_2] = a_1 L[y_1] + a_2 L[y_2] \quad \forall a_1,a_2 \in \R
 	\]
 	and for any pair of functions $y_1$, $y_2$.
 \end{definition}
 
-In simple terms, linear ODEs and PDEs are those where the dependent variables $y_1(x_j)$ appear linearly, i.e. raised to the power of one. For example, $y''(x) + x^2 y'(x) = e^{2x}$ is a linear ODE, while $y'(x) + y(x)^2 = -\sin{x}$ is non-linear as it contains the $y(x)^2$ term.
+In simple terms, linear ODEs and PDEs are those where the dependent variables $y_i(x_j)$ appear linearly, i.e. raised to the power of one. For example, $y''(x) + x^2 y'(x) = e^{2x}$ is a linear ODE, while $y'(x) + y(x)^2 = -\sin{x}$ is non-linear as it contains the $y(x)^2$ term.
+
+Differential equations are also classified by \textbf{order}. The order of a differential equation is simply the highest-order derivative that it contains. For example, $y'' - xy = x^2$ is a second-order ODE.
 
 
-
-\subsection{Introduction to Systems of first-order ODEs}
+\subsection{Introduction to Systems of First-Order ODEs}
 
 In a system of first-order differential equations, we generally consider the independent variable $t$ and a set of dependent variables $x_i(t)$, established and connected as follows:
-\[
+\begin{equation}\label{eq:fosystem}
 	x_i'(t) = F_i(x_1, x_2, \ldots, x_n, t), \quad i = 1, 2, \ldots, n
-\]
+\end{equation}
 
 A system is said to be \vb{autonomous} if $\p_t F_i = 0$ for all $i$ (in other words, the equations are independent of $t$).
+
+\begin{theorem}[Existence and uniqueness]
+	Let the functions $F_1, \ldots, F_n$ and partial derivatives $\p_{x_1}F_1, \ldots, \p_{x_n}F_1, \ldots, \p_{x_1}F_n, \ldots, \p_{x_n}F_n$ be continuous in the region $R$ defined by $\alpha \leq t \leq \beta$, $\alpha_i \leq x_i \leq \beta_i$, $\forall i$. Then for each $(x_i^0, t) \in R$, there exists and interval $[t_0-h, t_0+h]$ in which there is a unique solution $x_i = \phi_i(t)$ of \Cref{eq:fosystem} satisfying the initial condition $\phi_i(t_0) = x_i^0$.
+\end{theorem}
+
+% $F_i(x_j(t), t)$ and $\p_{x_j} F_i(x_j(t), t)$
+% $\frac{\p F_1}{\p x_1}, \ldots, \frac{\p F_1}{\p x_n}, \ldots, \frac{\p F_n}{\p x_1}, \ldots, \frac{\p F_n}{\p x_n}$
+% tells us when we expect to have a unique sol to a diff eqn
 
 It is often useful to transform a higher-order differential equation into a system of first-order ODEs.
 
@@ -122,7 +133,9 @@ The general method for transforming an arbitrary $n$th order ODE $y^{(n)}(t) = F
 
 \subsubsection{Geometric Interpretation}
 
-Geometrically, we may visualise a system of first-order equations as a vector field. The solutions to the system are then tangential to the vectors - in order words, the solution trajectories follow the arrows (see \Cref{fig:geomsys}).
+Geometrically, we may visualise a system of first-order equations as a vector field. If the system is autonomous, then the vector field will be static over time, while if the system is not autonomous then the vector field will change over time.
+
+The solutions to the system are tangential to the vectors - in order words, the solution trajectories follow the arrows (see \Cref{fig:geomsys}).
 
 \begin{figure}[!ht]
 	\centering
@@ -139,24 +152,24 @@ The general form of a linear system of ODEs is
 	x_i'(t) = \sum_{j=1}^n P_{ij}(t) x_j(t) + g_i(t), \quad i = 1,\ldots,n.
 \end{equation}
 
-For simplicity, we define the vector $\xt$ as
+\begin{theorem}
+	If $P_{ij}(t)$ and $g_i(t)$ are continuous in $[\alpha, \beta] \implies \exists t_0 \in (\alpha, \beta)$, there is a unique solution $x_t = \phi_i(t)$ in $[\alpha, \beta]$ solving \Cref{eq:linearsystem} and satisfying the initial condition $\phi_i(t_0) = x_i^0$.
+\end{theorem}
+
+For simplicity, we define the vector $\xt$ and matrix $P(t)$ as
 \begin{equation}
-	\xt = (x_i(t)) \in \R^n.
+	\xt = (x_1(t), x_2(t), \ldots, x_n(t)) \in \R^n \quad \text{and} \quad P(t) = \mat{P_{11}(t) & \cdots & P_{1n}(t) \\ \vdots & \ddots & \vdots \\ P_{n1}(t) & \cdots & P_{nn}(t)} \in \R^{n \times n}.
 \end{equation}
 
 Then \Cref{eq:linearsystem} may be written as
 \begin{equation}\label{eq:linearsystemvector}
-	\xtp = P(t) \xt + \gt, \quad P(t) \in \R^{n\times n}.
+	\xtp = P(t) \xt + \gt.
 \end{equation}
 
-\begin{theorem}
-	If $P(t)$ and $g(t)$ are continuous for $\alpha \leq t \leq \beta$, there is a unique solution $\xt$ that satisfies the initial conditions $\vbx(\alpha) = \vbx_0$.
-\end{theorem}
-
-We say the system is homogeneous if $\vb{g} = \bm{0}$. For now, we will only work with homogeneous systems, which we may write as $\vbx' = P\vbx$.
+We say the system is homogeneous if $\vb{g} = \bm{0}$; otherwise, it is non-homogeneous or inhomogeneous. For now, we will only work with homogeneous systems, which we may write as $\vbx' = P\vbx$.
 
 \begin{theorem}[Principle of Superposition]\label{thrm:superposition}
-	If $\{\vbx^{(j)}(t)\}$, $j = 1, \ldots, p$ are a set of solutions,
+	If $\{\vbx^{(j)}(t)\}$, $j = 1, \ldots, p$ is a set of solutions,
 	\begin{equation}\label{eq:gensol}
 		\xt = \sum_{j=1}^p c_j \vbx^{(j)}(t), \quad c_j \in \R
 	\end{equation}
@@ -190,7 +203,7 @@ The space of solutions is a vector space of dimension $n$. To analyse the linear
 Then, if this determinant is non-zero, the set of vectors are linearly independent. We call this determinant the \vb{Wronskian}, $W[\{\vbx^{(j)}(t)\}]$.
 
 \begin{theorem}\label{thrm:fundamentalset}
-	If $W[\{\vbx^{(j)}(t)\}] = W(t) \neq 0$ for $\alpha \leq t \leq \beta$, we say $\{\vbx^{(j)}(t)\}$ forms a fundamental set of solutions. Then, any solution may be written as (see \Cref{thrm:superposition})
+	If $W[\{\vbx^{(j)}(t)\}] = W(t) \neq 0$ for $\alpha \leq t \leq \beta$, we say $\{\vbx^{(j)}(t)\}$ forms a fundamental set of solutions. Then, any solution may be written as a linear combination of the $\vbx^{(j)}$
 	\[
 	\xt = \sum_{j=1}^n c_j \vbx^{(j)}(t).
 	\]
