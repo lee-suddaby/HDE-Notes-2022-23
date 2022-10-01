@@ -3,7 +3,7 @@
 \subsection{Classification of Differential Equations}
 
 \begin{definition}
-	Given some independent real variables $x_1, x_2, \ldots, x_n$ and some real-valued functions $y_1(x_j), y_2(x_j), \ldots, y_p(x_j)$, a system of differential equations is a system of equations relating them involving the derivatives $\p_j y_r, \p_i\p_j y_s, \ldots$ of the dependent variables:
+	Given some independent real variables $x_1, x_2, \ldots, x_n$ and some real-valued functions $y_1(x_j), y_2(x_j), \ldots, y_p(x_j)$, a system of differential equations is a system of equations relating them involving the derivatives $\p_j y_r, \p_i\p_j y_s, \ldots$ of the dependent variables:\footnote{In this case, the notation $x_j$ is used as a shorthand for the vector $\xt = (x_1, x_2, \ldots, x_n)$. In other cases where $j$ is specified, $x_j$ can be used to indicate the $j$th component of $\xt$.}
 	\[
 		\mathcal{F}_s[y_r, \p_j y_r, \ldots, x_j] = 0, \quad s = 1, \ldots, p.
 	\]
@@ -70,13 +70,9 @@ In a system of first-order differential equations, we generally consider the ind
 
 A system is said to be \vb{autonomous} if $\p_t F_i = 0$ for all $i$ (in other words, the equations are independent of $t$).
 
-\begin{theorem}[Existence and uniqueness]
-	Let the functions $F_1, \ldots, F_n$ and partial derivatives $\p_{x_1}F_1, \ldots, \p_{x_n}F_1, \ldots, \p_{x_1}F_n, \ldots, \p_{x_n}F_n$ be continuous in the region $R$ defined by $\alpha \leq t \leq \beta$, $\alpha_i \leq x_i \leq \beta_i$, $\forall i$. Then for each $(x_i^0, t) \in R$, there exists and interval $[t_0-h, t_0+h]$ in which there is a unique solution $x_i = \phi_i(t)$ of \Cref{eq:fosystem} satisfying the initial condition $\phi_i(t_0) = x_i^0$.
+\begin{theorem}[Existence and Uniqueness]
+	Let the functions $F_1, \ldots, F_n$ and partial derivatives $\p_{x_1}F_1, \ldots, \p_{x_n}F_1, \ldots, \p_{x_1}F_n, \ldots, \p_{x_n}F_n$ be continuous in the region $R$ defined by $\alpha \leq t \leq \beta$, $\alpha_i \leq x_i \leq \beta_i$, $\forall i$. Then for each point $(t_0, x_1^0, \ldots, x_n^0) \in R$, there exists an interval $[t_0-h, t_0+h]$ in which there is a unique solution $x_1 = \phi_1(t), \ldots, x_n = \phi_n(t)$ of \Cref{eq:fosystem} satisfying the initial condition $\phi_i(t_0) = x_i^0 \,\, \forall i$.
 \end{theorem}
-
-% $F_i(x_j(t), t)$ and $\p_{x_j} F_i(x_j(t), t)$
-% $\frac{\p F_1}{\p x_1}, \ldots, \frac{\p F_1}{\p x_n}, \ldots, \frac{\p F_n}{\p x_1}, \ldots, \frac{\p F_n}{\p x_n}$
-% tells us when we expect to have a unique sol to a diff eqn
 
 It is often useful to transform a higher-order differential equation into a system of first-order ODEs.
 
@@ -197,7 +193,7 @@ We say the system is homogeneous if $\vb{g} = \bm{0}$; otherwise, it is non-homo
 
 The space of solutions is a vector space of dimension $n$. To analyse the linear independence of $\{\vbx^{(j)}(t)\}, j = 1, \ldots, n$, we consider the following determinant
 \begin{equation}\label{eq:wronskian}
-	\det(\vbx^{(1)}(t), \vbx^{(2)}(t), \ldots, \vbx^{(n)}(t)) = \left| \begin{array}{ccc} x_1^{(1)} & \cdots & x_1^{(n)} \\ x_2^{(1)} & \cdots & x_2^{(n)} \\ \vdots & \ddots & \vdots \\ x_n^{(1)} & \cdots & x_n^{(n)} \\
+	\det(\vbx^{(1)}(t), \vbx^{(2)}(t), \ldots, \vbx^{(n)}(t)) = \left| \begin{array}{cccc} x_1^{(1)} & x_1^{(2)} & \cdots & x_1^{(n)} \\ x_2^{(1)} & x_2^{(2)} & \cdots & x_2^{(n)} \\ \vdots & \vdots & \ddots & \vdots \\ x_n^{(1)} & x_n^{(2)} & \cdots & x_n^{(n)}
 	\end{array} \right|
 \end{equation}
 Then, if this determinant is non-zero, the set of vectors are linearly independent. We call this determinant the \vb{Wronskian}, $W[\{\vbx^{(j)}(t)\}]$.
@@ -284,7 +280,11 @@ To do this, we seek exponential solutions (similar to the method used for solvin
 	\implies (A-rI)\xib &= \bm{0}.
 \end{align*}
 
-In other words, we require that $r$ is an eigenvalue of $A$ and $\xib$ is the corresponding eigenvector. The $n$ eigenvalues then yield $n$ solutions to the system (if they all exist).
+In other words, we require that $r$ is an eigenvalue of $A$ and $\xib$ is the corresponding eigenvector. The $n$ eigenvalues then yield $n$ solutions to the system (if they all exist).\footnote{One might wonder how we come up with the idea for exponential solutions. We can derive this by starting with a simpler guess for the solutions of $\xt = f(t)\xib$ - simply a function of time multiplied by a constant vector $\xib$. Then we substitute this into the differential equation $\xtp = A \xt$ and obtain the equation
+\[
+	f'(t) \xib = f(t) A \xib \overset{f(t) \neq 0}{\implies} \frac{f'(t)}{f(t)}\xib = A\xib.
+\]
+Since there is no time-dependence on the right-hand side of this equation, $\frac{f'(t)}{f(t)}$ must be constant i.e. $\frac{f'(t)}{f(t)} = r$ and the equation above becomes $A\xib = r \xib$. We can then see that this is solved by $f(t) = e^{rt}$ and $\xib$ being an eigenvector of $A$ associated with the eigenvalue $r$. (Normally $f(t) = e^{rt}$ would contain an arbitrary constant $+C$, but since the eigenvector $\xib$ already contains an arbitrary constant of multiplication - $k\xib$ is also an eigenvector for $k \in \R \setminus \{0\}$ - 	there is no loss of generality by omitting the constant from $f(t)$.)}
 
 Assuming the eigenvalues are all distinct, we have $n$ solutions, each of the form
 \[
@@ -335,7 +335,7 @@ This holds provided that all eigenvalues are distinct ($r_i \neq r_j$ for $i \ne
 \end{eg}
 
 \begin{remark}
-	Note that we could multiply through the vectors on the right-hand side of the general solution to write the equation as follows:
+	We can multiply through the vectors on the right-hand side of the general solution to write the equation as follows:
 	\[
 	\xt = \mat{x_1 \\ x_2} = \mat{c_1 e^{3t} + c_2 e^{-t} \\ 2c_1 e^{3t} - 2c_2 e^{-t}}.
 	\]
@@ -426,23 +426,22 @@ In other words, the real and imaginary parts of $\vbx_1(t)$ may be written as a 
 \subsubsection{Fundamental Matrices}
 
 \begin{definition}
-	A fundamental matrix $\Psi(t)$ is an $n \times n$ matrix with
+	A fundamental matrix $\Psi(t)$ is an $n \times n$ matrix with fundamental solutions $\vbx^{(i)}$ as columns:
 	\[
-	\Psi(t) = (\vbx^{(1)}(t), \ldots, \vbx^{(n)}(t)) = \mat{x_1^{(1)} & \cdots & x_1^{(n)} \\ \vdots & \ddots & \vdots \\ x_n^{(1)} & \cdots & x_n^{(n)} \\
-	}.
+		\Psi(t) = (\vbx^{(1)}(t), \ldots, \vbx^{(n)}(t)) = \mat{x_1^{(1)} & x_1^{(2)} & \cdots & x_1^{(n)} \\ x_2^{(1)} & x_2^{(2)} & \cdots & x_2^{(n)} \\ \vdots & \vdots & \ddots & \vdots \\ x_n^{(1)} & x_n^{(2)} & \cdots & x_n^{(n)}}.
 	\]
 \end{definition}
 
 Properties of the fundamental matrix:
 \begin{itemize}
-	\item $\det \Psi(t) = W(t) \neq 0$ (see \Cref{eq:wronskian}).
+	\item $\det \Psi(t) = W(t) \neq 0$ because $\vbx^{(i)}$ form a fundamental set (see also \Cref{eq:wronskian}).
 	\item{Considering the general solution in \Cref{eq:gensol},
 		\begin{align*}
 			\xt = \sum_{j=1}^p c_j \vbx^{(j)}(t) = (\vbx^{(1)}(t), \ldots, \vbx^{(n)}(t)) \mat{c_1 \\ \vdots \\ c_n} = \Psi(t) \bm{c}
 		\end{align*}
 		i.e. the general solution is given by the fundamental matrix multiplied by a vector of constants. Indeed, by \Cref{thrm:fundamentalset}, we have that \emph{any} solution may be written this way.}
 	\item $\Psi'(t) = A \Psi(t)$ i.e. $\Psi(t)$ is a solution of the system of ODEs.
-	\item $\xt = \Psi(t) \Psi^{-1}(0) \vbx_0$ solves $\xtp = A\xt$, with $\vbx(0) = \vbx_0$.
+	\item $\xt = \Psi(t) \Psi^{-1}(t_0) \vbx_0$ solves $\xtp = A\xt$, with $\vbx(t_0) = \vbx_0$.
 \end{itemize}
 
 \begin{eg}\label{eg:fundamentalmatrix}
@@ -473,10 +472,15 @@ For a matrix $A$, we define $e^{At}$ analogously:
 e^{At} = \sum_{k=0}^{\infty} \frac{(At)^k}{k!} = I + At + \frac{A^2t^2}{2!} + \frac{A^3t^3}{3!} + \cdots
 \]
 
+Alternatively,
+\[
+	e^{At} = \lim_{n\to\infty} \left(I + \frac{1}{n}A\right)^n.
+\]
+
 Properties of $e^{At}$:
 \begin{itemize}
 	\item $e^{At} = I$ at $t=0$.
-	\item $\frac{d}{dt}(e^{At}) = A e^{At}$, i.e. $e^{At} = \Psi(t)$.\footnote{Checking this using the series definition of $e^{At}$ is a good exercise.}
+	\item $\frac{d}{dt}(e^{At}) = A e^{At}$, i.e. $e^{At} = \Psi(t)$ for $\Psi(0) = I$.\footnote{Checking this using the series definition of $e^{At}$ is a good exercise.}
 	\item The solution of $\xtp = A\xt$ such that $\vbx(0) = \vbx_0$ is $\xt = e^{At} \vbx(0)$. This is because $\xt = \Psi(t) \Psi^{-1}(0) \vbx_0$ and $\Psi^{-1}(0) = I$ for $\Psi(t) = e^{At}$ since $e^{At} = I$ at $t=0$.
 \end{itemize}
 
@@ -489,7 +493,7 @@ Properties of $e^{At}$:
 	\]
 	Determining $\Psi^{-1}(0)$:
 	\[
-	\Psi(0) = \mat{1 & 1 \\ 0 & 1} \implies \Psi^{-1}(0) \mat{1 & -1 \\ 0 & 1}.
+	\Psi(0) = \mat{1 & 1 \\ 0 & 1} \implies \Psi^{-1}(0) = \mat{1 & -1 \\ 0 & 1}.
 	\]
 	Therefore
 	\[
@@ -501,20 +505,34 @@ Properties of $e^{At}$:
 
 \subsubsection{Matrix Exponentiation and Diagonalisation}\label{sec:diag}
 
-Recall that the $n \times n$ matrix $A$ is diagonalisable if it has $n$ independent eigenvectors $\xib_j$, with $A \xib_j = r_j \xib_j$.
+Recall that the $n \times n$ matrix $A$ is diagonalisable if it has $n$ independent eigenvectors $\xib^{(i)}$, with $A \xib^{(i)} = r_i \xib^{(i)}$.
 
-We construct a matrix
+We construct a matrix with the eigenvectors as columns
 \[
-T = (\xib_1, \ldots, \xib_n),
+	T = \left(\xib ^{(1)}, \ldots, \xib ^{(n)}\right) = \mat{\xib_1^{(1)} & \xib_1^{(2)} & \cdots & \xib_1^{(n)} \\ \xib_2^{(1)} & \xib_2^{(2)} & \cdots & \xib_2^{(n)} \\ \vdots & \vdots & \ddots & \vdots \\ \xib_n^{(1)} & \xib_n^{(2)} & \cdots & \xib_n^{(n)}}.
 \]
-then
-\[
-T^{-1}AT = \text{diag}(r_1, \ldots, r_n) = R.
-\]
+The Matrix $AT$ has columns equal to $A \xib^{(i)} = r_i \xib^{(i)}$, thus
+\begin{align*}
+	AT &= \mat{r_1\xib_1^{(1)} & \xib_1^{(2)} & \cdots & r_n\xib_1^{(n)} \\ r_1\xib_2^{(1)} & \xib_2^{(2)} & \cdots & r_n\xib_2^{(n)} \\ \vdots & \vdots & \ddots & \vdots \\ r_1\xib_n^{(1)} & \xib_n^{(2)} & \cdots & r_n\xib_n^{(n)}} = T \mat{r_1 & 0 & \cdots & 0 \\ 0 & r_2 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & r_n} \\
+	&= T \text{diag}(r_1, \ldots, r_n) \equiv TD \\
+	&\implies D = T^{-1}AT.
+\end{align*}
 
-Furthermore,
+The relation $D = T^{-1}AT$ corresponds to a change of basis $\vbx = t\vb{y}$, which can be seen from the fact that
 \[
-e^{At} = T e^{Rt} T^{-1} = T \cdot \text{diag}(e^{r_1t}, \ldots, e^{r_nt}) \cdot T^{-1}.
+	\vbx t\vb{y} \implies T \frac{d\vb{y}}{dt} = AT\vb{y} \implies \frac{d\vb{y}}{dt} = T^{-1}AT \vb{y} = D\vb{y}.
+\]
+The fundamental matrix of the system under the change of variables is
+\[
+	Q(t) = e^{Dt} = \text{diag}(e^{r_1t}, e^{r_2t}, \ldots, e^{r_nt}) = \mat{e^{r_1t} & 0 & \cdots & 0 \\ 0 & e^{r_2t} & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & e^{r_nt}}.
+\]
+Then the fundamental matrix in the original variables $\vbx$ is
+\[
+	\Psi(t) = TQ(t) = T \text{diag}(e^{r_1t}, e^{r_2t}, \ldots, e^{r_nt}),
+\]
+and the exponential matrix is
+\[
+	e^{At} = \Psi(t) \Psi^{-1}(0) = TQT^{-1} = T \text{diag}(e^{r_1t}, e^{r_2t}, \ldots, e^{r_nt}) T^{-1}.
 \]
 
 \begin{eg}
@@ -528,7 +546,7 @@ e^{At} = T e^{Rt} T^{-1} = T \cdot \text{diag}(e^{r_1t}, \ldots, e^{r_nt}) \cdot
 	\]
 	then
 	\[
-	e^{At} = Te^{Rt}T^{-1} = \mat{1 & 1 \\ -2 & 2} \mat{e^{-t} & 0 \\ 0 & e^{3t}} \mat{\sfrac{1}{2} & \text{-}\sfrac{1}{4} \\ \sfrac{1}{2} & \sfrac{1}{4}} = \mat{\frac12(e^{-t}+e^{3t}) & \frac14(e^{3t}-e^{-t}) \\ e^{3t}-e^{-t} & \frac12(e^{-t}+e^{3t})}
+	e^{At} = Te^{Dt}T^{-1} = \mat{1 & 1 \\ -2 & 2} \mat{e^{-t} & 0 \\ 0 & e^{3t}} \mat{\sfrac{1}{2} & \text{-}\sfrac{1}{4} \\ \sfrac{1}{2} & \sfrac{1}{4}} = \mat{\frac12(e^{-t}+e^{3t}) & \frac14(e^{3t}-e^{-t}) \\ e^{3t}-e^{-t} & \frac12(e^{-t}+e^{3t})}
 	\]
 \end{eg}
 
@@ -620,7 +638,7 @@ T = (\xib, \etab) = \mat{1 & -1 \\ -1 & 0}.
 \]
 Then we find that
 \[
-T^{-1}AT = \mat{0 & -1 \\ -1 & -1} \mat{1 & -1 \\ 1 & 3} \mat{1 & -1 \\ -1 & 0} = \mat{2 & 1 \\ 0 & 2} = J_r.
+T^{-1}AT = \mat{0 & -1 \\ -1 & -1} \mat{1 & -1 \\ 1 & 3} \mat{1 & -1 \\ -1 & 0} = \mat{2 & 1 \\ 0 & 2} = J_2.
 \]
 
 Now we shall compute $e^{J_rt}$. This is useful since $T^{-1}AT = J_r \implies e^{At} = Te^{J_rt}T^{-1}$. Note that $e^{A+B} = e^A e^B$ provided that $AB = BA$. We have
@@ -647,7 +665,7 @@ In addition, a similar procedure may be used to find that, for a $3 \times 3$ Jo
 e^{J_rt} = e^{rt} \mat{1 & t & \frac{t^2}{2} \\ 0 & 1 & t \\ 0 & 0 & 1}.
 \]
 
-Note that a lot of the derivations/proofs present in the video lectures were not carried over to these notes. There was a very good reason for this - \sout{I really couldn't be bothered} it was decided that they were best left as an exercise to the reader.
+% Note that a lot of the derivations/proofs present in the video lectures were not carried over to these notes. There was a very good reason for this - \sout{I really couldn't be bothered} it was decided that they were best left as an exercise to the reader.
 
 \subsubsection{Two More Examples}
 
