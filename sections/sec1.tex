@@ -581,7 +581,7 @@ We will now solve systems $\xtp = A\xt$ where the matrix $A$ has repeated eigenv
 		\xib + 2\etab = A\etab \implies (A-2I)\etab &= \xib \\ \mat{-1 & -1 \\ 1 & 1}\etab &= \mat{1 \\ -1} \\
 		\etab &= \mat{-1 \\ 0} + k\mat{1 \\ -1}
 	\end{align*}
-	$\etab$ is known as a \vb{generalised eigenvector}. Observe that we may add any scalar multiple of the eigenvector $\xib$ to $\etab$ since $(A-2I)\xib = \bm{0}$ thus this addition will not affect the RHS of the equation $(A-2I)\etab = \xib$.
+	$\etab$ is known as a \vb{generalised eigenvector}.\footnote{It is called a generalised eigenvector since $(A-rI)\etab = \xib \implies (A-rI)^2\etab = \bm{0}$; a generalised eigenvector is defined as the vector $\vbx$ for which $(A-\lambda I)^p = \bm{0}$ for some positive integer $p$.} Observe that we may add any scalar multiple of the eigenvector $\xib$ to $\etab$ since $(A-2I)\xib = \bm{0}$ thus this addition will not affect the RHS of the equation $(A-2I)\etab = \xib$.
 	
 	We can now write the second solution as
 	\[
@@ -660,12 +660,11 @@ So
 e^{J_rt} = \mat{e^{rt} & 0 \\ 0 & e^{rt}} \mat{1 & t \\ 0 & 1} = \mat{e^{rt} & te^{rt} \\ 0 & e^{rt}} = e^{rt} \mat{1 & t \\ 0 & 1}.
 \]
 
-In addition, a similar procedure may be used to find that, for a $3 \times 3$ Jordan form matrix $J_r$,\footnote{In fact, for the general $n \times n$ case, \[e^{Jt} = \mat{1 & t & t^2/2 & \dots & t^{n-1}/(n-1)! \\ 0 & 1 & t & \dots & t^{n-2}/(n-2)! \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \dots & 1}.\] The proof of this is of course left as an exercise.}
+In addition, a similar procedure may be used to find that, for a $3 \times 3$ Jordan form matrix $J_r$,\footnote{In fact, for the general $n \times n$ case, \[e^{J_rt} = e^{rt}\mat{1 & t & t^2/2 & \dots & t^{n-1}/(n-1)! \\ 0 & 1 & t & \dots & t^{n-2}/(n-2)! \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \dots & 1}.\] The proof of this is of course left as an exercise.}
 \[
 e^{J_rt} = e^{rt} \mat{1 & t & \frac{t^2}{2} \\ 0 & 1 & t \\ 0 & 0 & 1}.
 \]
 
-% Note that a lot of the derivations/proofs present in the video lectures were not carried over to these notes. There was a very good reason for this - \sout{I really couldn't be bothered} it was decided that they were best left as an exercise to the reader.
 
 \subsubsection{Two More Examples}
 
@@ -739,7 +738,7 @@ e^{J_rt} = e^{rt} \mat{1 & t & \frac{t^2}{2} \\ 0 & 1 & t \\ 0 & 0 & 1}.
 
 In this section, we turn to the Non-homogeneous system:
 \[
-\xtp = P(t) \vbx + \gt
+\xtp = P(t) \xt + \gt
 \]
 where $P(t)$ is an $n \times n$ matrix and $\gt$ is the $n \times 1$ vector that makes the system non-homogeneous. The general solution of this system can be given by:
 \begin{equation}
@@ -751,7 +750,7 @@ where $\vbx_h(t)$ is the general solution of the homogeneous system and $\vbx_p(
 Now, we aim to find the particular solution $\vbx_p(t)$ to the non-homogeneous system. We will mainly focus on systems $\xtp = A\xt + \gt$, i.e. those which have constant coefficients instead of a matrix $P(t)$ which is dependent on $t$. There are three methods to solve this:
 \begin{itemize}
 	\item Diagonalisation, for constant coefficients $P(t) = A$, any $\gt$.
-	\item Method of undetermined coefficients, for constant coefficients $P(t) = A$, exponential-polynomial $\gt$.
+	\item Method of undetermined coefficients, for constant coefficients $P(t) = A$, and where $\gt$ contains only exponential, polynomial, sine or cosine terms, or sums or products of these.
 	\item Variation of parameters for any $P(t)$, any $\gt$.
 \end{itemize}
 
@@ -775,7 +774,7 @@ We multiply by $T^{-1}$ to get:
 \begin{equation}\label{eq:diagdecoupled}
 	\bm{y}' = T^{-1} A T \bm{y} + T^{-1} \gt
 \end{equation}
-By \Cref{sec:diag}, recall $T^{-1} A T = \text{diag}(r_1,\ldots,r_n) = R$. Then we obtain a system of uncoupled ODEs:
+By \Cref{sec:diag}, recall $T^{-1} A T = \text{diag}(r_1,\ldots,r_n) = D$. Then we obtain a system of uncoupled ODEs:
 \[
 {y_i}' = r_i y_i + h_i(t)
 \]
@@ -839,10 +838,10 @@ The solution $\xt$ is obtained by multiplying the matrix $T$ with $\bm{y}(t)$, w
 		y_2(t) &= c_2e^{-3t} + \frac{e^{-t}}{2} - \frac{t}{2} + \frac{1}{6}
 	\end{align}
 	Finally,
-	\[
-	\xt = T \bm{y}(t) = \mat{1 &1 \\ 1 &-1} \mat{c_1 e^{-t} + t e^{-t} + \frac{3}{2}(t-1) \\ c_2e^{-3t} + \frac{e^{-t}}{2} - \frac{t}{2} + \frac{1}{6}} = \mat{e^{-t}(d_1 + t) + t + c_2e^{-3t} - \frac{4}{3} \\ e^{-t}(d_2 + t) + 2t - c_2e^{-3t} - \frac{5}{3}}
-	\]
-	where $d_1 = c_1 + \frac{1}{2}$ and $d_2 = c_1 - \frac{1}{2}$.
+	\begin{align*}
+		\xt &= T \bm{y}(t) = \mat{1 &1 \\ 1 &-1} \mat{c_1 e^{-t} + t e^{-t} + \frac{3}{2}(t-1) \\ c_2e^{-3t} + \frac{e^{-t}}{2} - \frac{t}{2} + \frac{1}{6}} \\
+		&= c_1e^{-t}\mat{1\\1} + c_2e^{-3t}\mat{1\\-1} + t\mat{1\\2} - \frac{1}{3}\mat{4\\5} + e^{-t}\left(t\mat{1\\1} + \frac12\mat{1\\-1} \right).
+	\end{align*}
 \end{eg}
 
 Now we consider the situation where the matrix $A$ is not diagonalisable.
@@ -866,20 +865,22 @@ This method works when we have to solve a system of ODEs of the form
 \[
 \xtp = P(t) \vbx + \gt
 \] 
-where $P(t)$ is a fixed matrix $A$ and $\gt$ is a product or sum of an exponential and polynomial function or a sum of such products.
+where $P(t)$ is a fixed matrix $A$ and $\gt$ contains only exponential, polynomial, sine or cosine terms, or sums or products of these.
 
 To solve the ODE, try $\vbx_p(t)$ of the same form as $\gt$, i.e. exponentials and polynomials of the same degree as $\gt$ but with arbitrary coefficients in the polynomials. The coefficients are then determined by applying $\vbx_p(t)$ into the ODE and then comparing the coefficients of $t, t^0, $ etc. to find which coefficients satisfy the ODE.
 
-\begin{remark}[Exception:] If $\gt = \bm{c} e^{rt}$, where $r$ is an eigenvalue of A with algebraic multiplicity $n$, then try:
-	\[
+\textbf{Exception:} If $\gt = \bm{c} e^{rt}$, where $r$ is an eigenvalue of A with algebraic multiplicity $n$, then try:
+\[
 	\vbx_p(t) = (\bm{a}_n t^n+\bm{a}_{n-1} t^{n-1} + \cdots + \bm{a}_0)e^{rt}
-	\]
-\end{remark}
+\]
+
+The process for choosing the trial function is essentially the same as that laid out for single second-order ODEs in \Cref{sec:secondorderconst}.
+
 
 \begin{eg}\label{eg:nonhom2}
 	We solve the same system as in \Cref{eg:nonhom}:
 	\[ 
-	\xtp = A\vbx + \gt = \mat{-2&1\\1&-2} \vbx + \mat{2e^{-t}\\3t}
+	\xtp = A\xt + \gt = \mat{-2&1\\1&-2} \xt + \mat{2e^{-t}\\3t}
 	\]
 	In \Cref{eg:nonhom}, we found that the eigenvalues of A are $r_1 = -1$ and $r_2 = -3$ with corresponding eigenvectors $\xib^{(1)} = \mat{1 \\ 1}$ and $\xib^{(2)} = \mat{1 \\ -1}$. Thus the homogeneous solution of the system is
 	\[
@@ -953,9 +954,9 @@ To solve the ODE, try $\vbx_p(t)$ of the same form as $\gt$, i.e. exponentials a
 	\implies \bm{c} - \mat{2\\0} = \left(\mat{-2&1 \\ 1&-2} + I\right)\bm{d} = \mat{\alpha-2\\\alpha}
 	\]
 	Let $\mat{-1&1 \\ 1&-1}\bm{d} =B$. Then the rows of $B$ are multiples of each other so it is a singular matrix. So, the system is compatible only if $\alpha = -(\alpha - 2) \implies \alpha = 1$. Therefore,
-	\[
-	\mat{-1&1 \\ 1&-1}\bm{d} = \mat{-1\\1} \implies \bm{d} = \mat{1\\0} + k\mat{1\\1}
-	\]
+	\begin{equation}\label{eq:nonhom2d}
+		\mat{-1&1 \\ 1&-1}\bm{d} = \mat{-1\\1} \implies \bm{d} = \mat{1\\0} + k\mat{1\\1}
+	\end{equation}
 	So,
 	\[\vbx_p^{(2)}(t) = e^{-t}\left(\mat{1\\1} + \mat{1\\0} + k\mat{1\\1}\right)
 	\]
@@ -969,6 +970,15 @@ To solve the ODE, try $\vbx_p(t)$ of the same form as $\gt$, i.e. exponentials a
 	\]
 \end{eg}
 
+\begin{remark}
+	The particular solution in this example is not unique because we could choose the value of $k$ in the solution for $\vb{d}$ in \Cref{eq:nonhom2d}. For example, choosing $k=-1$ instead of $k=0$ would yield the term $e^{-t}\mat{0 \\ -1}$ instead of $e^{-t}\mat{1 \\ 0}$.
+	
+	This can also be seen since a $\vb{k}e^{-t}$ term features in both the particular solution and homogeneous solution - intuitively, we can `swap' multiples of $e^{-t}\mat{1 \\ 1}$ between the homogeneous and particular solutions since $c_1$ is arbitrary.
+\end{remark}
+
+\begin{remark}
+	The $e^{-t}$ terms in the particular solutions in Examples \ref{eg:nonhom} and \ref{eg:nonhom2} do not currently agree but, inspired by the previous remark, we see they can be made to agree by choosing $k=-\dfrac12$ in \Cref{eq:nonhom2d}.
+\end{remark}
 
 \subsubsection{Variation of Parameters}
 
@@ -1009,10 +1019,10 @@ Particularly for $\vbx(t_0) = \vbx_0$:
 	Note that we can go from the \Cref{eq:varparamu} to a solution in another way than explicitly finding $\Psi^{-1}$. Instead, we can write $\bm{u} = \mat{u_1' \\ \vdots \\ u_n'}$ then perform the multiplication $\Psi \bm{u}'$ and equate with $\gt$ to find a system of $n$ ODEs for $u_1', \dots, u_n'$. Algebraic manipulation may then be used to, for example, solve for $u_n'$ and then $u_n$ and back substitute to solve for the other components of $\bm{u}'$ and hence $\bm{u}$. An example of this method is given in \Cref{eg:varparamsolve}.
 \end{remark}
 
-\begin{eg}
+\begin{eg}\label{eg:nonhom3}
 	We solve the same system as in Examples \ref{eg:nonhom} and \ref{eg:nonhom2} using variation of parameters. A reminder that the system is
 	\[
-	\xtp = A\vbx + \gt = \mat{-2&1\\1&-2} \vbx + \mat{2e^{-t}\\3t}.
+	\xtp = A\xt + \gt = \mat{-2&1\\1&-2} \xt + \mat{2e^{-t}\\3t}.
 	\]
 	We already know that the fundamental matrix $\Psi(t)$ is given by
 	\[
@@ -1032,8 +1042,9 @@ Particularly for $\vbx(t_0) = \vbx_0$:
 	\end{align*}
 	Then all that remains is to add in the homogeneous solution $\Psi(t) \bm{k}$:
 	\[
-	\xt = c_1e^{-t}\mat{1\\1} + c_2e^{-3t}\mat{1\\-1} + t\mat{1\\2} + te^{-t}\mat{1\\1} + \frac12e^{-t}\mat{1\\-1} + \mat{-\sfrac{4}{3} \\ -\sfrac{5}{3}}.
+		\xt = c_1e^{-t}\mat{1\\1} + c_2e^{-3t}\mat{1\\-1} + t\mat{1\\2} - \frac{1}{3}\mat{4\\5} + e^{-t}\left(t\mat{1\\1} + \frac12\mat{1\\-1} \right).
 	\]
+	This is the same solution as in Example \ref{eg:nonhom} and equivalent to the solution found in Example \ref{eg:nonhom2}.
 \end{eg}
 
 \begin{eg}\label{eg:varparamsolve}
@@ -1068,7 +1079,7 @@ Particularly for $\vbx(t_0) = \vbx_0$:
 	\[
 	u_2' = \frac{du_2}{dt} = -\cos^2t
 	\] 
-	This can be solved by simply integrating both sides, and using the fact that the integral of $\cos^2t$ is $\frac{t}{2} + \frac{\sin(2t)}{4} + C$\footnote{since we can write $\cos^2t = \frac12(1 + \cos(2t))$.} to give
+	This can be solved by simply integrating both sides, and using the fact that the integral of $\cos^2t$ is $\dfrac{t}{2} + \dfrac{\sin(2t)}{4} + C$ to give\footnote{since we can write $\cos^2t = \frac12(1 + \cos(2t))$.}
 	\[
 	u_2 = k_1 - \frac{t}{2} - \frac14\sin(2t).
 	\]
@@ -1086,6 +1097,10 @@ Particularly for $\vbx(t_0) = \vbx_0$:
 	\end{align*}
 	In fact, since $k_1$ and $k_2$ are arbitrary constants, this expression constitutes the entire general solution.
 \end{eg}
+
+\begin{exercise}
+	Go back and solve Example \ref{eg:nonhom3} by using the method of the previous example \ref{eg:varparamsolve}: Use the equation $\Psi\vb{u}' = \vb{g}$ to find a system of two first-order ODEs for $u_1'$ and $u_2'$, solve by direct integration, and find the particular solution using $\xt = \Psi(t)\vb{u}(t)$.
+\end{exercise}
 
 \begin{eg}
 	To illustrate the process for solving a system where the matrix $P(t)$ is not a constant matrix, we solve the system
@@ -1163,7 +1178,7 @@ The exponential matrix $e^{At}$ is that for which
 $e^{At}$ can be obtained as
 \begin{itemize}
 	\item $e^{At} = \Psi(t)\Psi^{-1}(0)$.
-	\item $e^{At} = \sum_{k=0}^{\infty} \frac{(At)^k}{k!}$.
+	\item $e^{At} = \sum\limits_{k=0}^{\infty} \dfrac{(At)^k}{k!}$.
 	\item $e^{At} = T \text{diag}(e^{r_1t}, \dots, e^{r_nt})T^{-1}$ for diagonalisable $A$ with $T^{-1}AT = \text{diag}(r_1, \dots, r_n)$.
 \end{itemize}
 
@@ -1190,7 +1205,7 @@ For an non-homogeneous system of the form $\xtp = P(t)\xt + \gt$, the general so
 There are three techniques to find the particular solution:
 \begin{enumerate}
 	\item Diagonalisation, for constant matrix $P(t)=A$ and any $\gt$. This uses a change of variables $\vbx = T\bm{y}$, with $T = (\xib ^{(1)}, \ldots, \xib ^{(n)})$, leading to a system of uncoupled ODEs which may be solved individually, often using integrating factors.
-	\item Method of undetermined coefficients, for constant coefficients $P(t)=A$ and exponential-polynomial $\gt$. A trial solution is used based on the form of $\gt$, then substituted into the original system. Coefficients of $t$, $t^0$ etc. are compared to solve for the undetermined coefficients.
+	\item Method of undetermined coefficients, for constant coefficients $P(t)=A$ and exponential-polynomial-sinusoidal $\gt$. A trial solution is used based on the form of $\gt$, then substituted into the original system. Coefficients of $t$, $t^0$ etc. are compared to solve for the undetermined coefficients.
 	\item Variation of parameters, for any $P(t)$ and $\gt$. Given a fundamental matrix $\Psi(t)$, the solution $\xt$ is given by $\xt = \Psi(t)\bm{k} + \Psi(t) \int \Psi^{-1}(s) \vb{g}(s)\,ds$.
 \end{enumerate}
 
