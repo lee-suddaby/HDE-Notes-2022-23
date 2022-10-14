@@ -518,9 +518,9 @@ The Matrix $AT$ has columns equal to $A \xib^{(i)} = r_i \xib^{(i)}$, thus
 	&\implies D = T^{-1}AT.
 \end{align*}
 
-The relation $D = T^{-1}AT$ corresponds to a change of basis $\vbx = t\vb{y}$, which can be seen from the fact that
+The relation $D = T^{-1}AT$ corresponds to a change of basis $\vbx = T\vb{y}$, which can be seen from the fact that
 \[
-	\vbx t\vb{y} \implies T \frac{d\vb{y}}{dt} = AT\vb{y} \implies \frac{d\vb{y}}{dt} = T^{-1}AT \vb{y} = D\vb{y}.
+	\vbx = T\vb{y} \implies T \frac{d\vb{y}}{dt} = AT\vb{y} \implies \frac{d\vb{y}}{dt} = T^{-1}AT \vb{y} = D\vb{y}.
 \]
 The fundamental matrix of the system under the change of variables is
 \[
@@ -863,9 +863,9 @@ The second equation involves only $y_2$ whereas the first equation involves both
 
 This method works when we have to solve a system of ODEs of the form
 \[
-\xtp = P(t) \vbx + \gt
+\xtp = A\xt + \gt
 \] 
-where $P(t)$ is a fixed matrix $A$ and $\gt$ contains only exponential, polynomial, sine or cosine terms, or sums or products of these.
+where $A$ is a constant matrix and $\gt$ contains only exponential, polynomial, sine or cosine terms, or sums or products of these.
 
 To solve the ODE, try $\vbx_p(t)$ of the same form as $\gt$, i.e. exponentials and polynomials of the same degree as $\gt$ but with arbitrary coefficients in the polynomials. The coefficients are then determined by applying $\vbx_p(t)$ into the ODE and then comparing the coefficients of $t, t^0, $ etc. to find which coefficients satisfy the ODE.
 

@@ -13,11 +13,16 @@ We will now focus on $\vbx = (x, y) \in \R^2$ where
 		y' = G(x,y)
 	\end{cases}
 \end{equation}
+Since $F$ and $G$ can be arbitrary, the problem is generally non-linear.
 
 The terminology used here might be useful in the content that follows: the $(x,y)$ plane is a \vb{phase plane}, where vector fields are plotted and a representative set of trajectories is referred to as a \vb{phase portrait}.
 
+\begin{definition}
+	A point $\vbx_0 = (x_0, y_0)$ is a \textbf{critical point} if $F(x_0, y_0) = G(x_0, y_0) = 0$.
+\end{definition}
+
 \begin{theorem}[Rectification theorem]
-	Consider $\xta$ such that $(F(\xta), G(\xta)) \neq (0,0)$. Then, in a neighbourhood of $\xta$, there is a change of variables $(x,y) \mapsto (\Tilde{x}, \Tilde{y})$ that transforms the ODE into 
+	Consider $\xta = (x_{\ast}, y_{\ast})$ such that $(F(\xta), G(\xta)) \neq (0,0)$. Then, in a neighbourhood of $\xta$, there is a smooth change of variables $(x,y) \mapsto (\Tilde{x}, \Tilde{y})$ that transforms the ODE into 
 	\[
 	\begin{cases}
 		\Tilde{x}' = 1 \\
@@ -119,30 +124,31 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 \begin{itemize}
 	\item Case 1: Real Unequal Eigenvalues:
 	\begin{enumerate}[label=(\roman*)]
-		\item $r_1 < r_2 < 0$ \\
-		Consider the solution $\xt = c_1 e^{r_1t} \xib_1 + c_2 e^{r_2t} \xib_2$. \\
-		We now observe how $x$ changes as $t \rightarrow \pm \infty$\\
-		\underline{As $t \rightarrow \infty$}: if $c_2 \neq 0$, then $\xt \rightarrow 0$ along $\xib_2$ as $r_2$ is the most negative. 
-		If $c_2 = 0$ $\xt \rightarrow 0$ along $\xib_1$. \\
-		\underline{As $t \rightarrow -\infty$}: if $c_1 \neq 0$, then $\xt \rightarrow \infty$ along $\xib_1$ as $r_1$ is least negative. 
-		If $c_1 = 0$ $\xt \rightarrow \infty$ along $\xib_2$. \\
+		\item $r_1 < r_2 < 0$: \\
+		Consider the solution $\xt = c_1 e^{r_1t} \xib_1 + c_2 e^{r_2t} \xib_2 = e^{r_2t} (c_1 e^{(r_1-r_2)t} \xib_1 + c_2 \xib_2)$. \\
+		We now observe how $x$ changes as $t \to \pm \infty$: \\
+		\underline{As $t \to \infty$}: if $c_2 \neq 0$, then the term $c_1 e^{(r_1-r_2)t} \xib_1$ is of negligible magnitude compared to $c_2 \xib_2$ for sufficiently large $t$, so $\xt \to 0$ along $\xib_2$.
+		If $c_2 = 0$ (i.e. the solution starts on the line $\xib_1$) then $\xt \to 0$ along $\xib_1$. \\
+		\underline{As $t \to -\infty$}: if $c_1 \neq 0$, then the dominant term is $c_1 e^{r_1t} \xib_1$ and $\xt \to \infty$ along $\xib_1$. 
+		If $c_1 = 0$, then $|\xt| \to \infty$ along $\xib_2$. \\
 		The critical point in this case is a \vb{nodal sink} (see \Cref{fig:trajectory1}).
 		
-		\item $r_1 > r_2 > 0$ \\
+		\item $r_1 > r_2 > 0$: \\
 		Consider the solution $\xt = c_1 e^{r_1t} \xib_1 + c_2 e^{r_2t} \xib_2$. \\
-		We now observe how $x$ changes as $t \rightarrow \pm \infty$\\
-		\underline{As $t \rightarrow \infty$}: if $c_1 \neq 0$, then $\xt \rightarrow \infty$ along $\xib_1$ as $r_1$ is most positive. 
-		If $c_1 = 0$ $\xt \rightarrow \infty$ along $\xib_2$. \\
-		\underline{As $t \rightarrow -\infty$}: if $c_2 \neq 0$, then $\xt \rightarrow 0$ along $\xib_2$ as $r_2$ is least positive. 
-		If $c_2 = 0$ $\xt \rightarrow 0$ along $\xib_1$. \\
+		We now observe how $x$ changes as $t \to \pm \infty$: \\
+		\underline{As $t \to \infty$}: if $c_1 \neq 0$, then $|\xt| \to \infty$ along $\xib_1$ as the $c_1 e^{r_1t} \xib_1$ term dominates.
+		If $c_1 = 0$, then $|\xt| \to \infty$ along $\xib_2$. \\
+		\underline{As $t \to -\infty$}: if $c_2 \neq 0$, then $\xt \to 0$ along $\xib_2$ as the $c_2 e^{r_2t} \xib_2$ term dominates.  
+		If $c_2 = 0$, then $\xt \to 0$ along $\xib_1$. \\
 		The critical point in this case is a \vb{nodal source} (essentially the same as \Cref{fig:trajectory1}, with the arrows all running in the opposite direction).
 		
-		\item $r_1 > 0 > r_2$ \\
+		\item $r_1 > 0 > r_2$: \\
 		Consider the solution $\xt = c_1 e^{r_1t} \xib_1 + c_2 e^{r_2t} \xib_2$. \\
-		We now observe how $x$ changes as $t \rightarrow \pm \infty$\\
-		$x \rightarrow\infty$ as $t\rightarrow \pm \infty$ unless:\\
-		$c_1 = 0$, in which case $x \rightarrow0$ as $t \rightarrow \infty$ \\
-		$c_2 = 0$, in which case $x \rightarrow0$ as $t \rightarrow -\infty$ \\
+		We now observe how $x$ changes as $t \to \pm \infty$: \\
+		As $t \to \infty$, the $c_1 e^{r_1t}\xib_1$ term dominates and $|\xt| \to \infty$. As $t \to -\infty$, the $c_2 e^{r_2t}\xib_2$ term dominates and $|\xt| \to \infty$ also. \\
+		The exceptions are: \\
+		$c_1 = 0$, in which case $x \to0$ as $t \to \infty$ since $r_2$ is negative. \\
+		$c_2 = 0$, in which case $x \to0$ as $t \to -\infty$. \\
 		The critical point in this case is a \vb{saddle point} (see \Cref{fig:trajectory2}).
 	\end{enumerate}
 	
@@ -172,7 +178,7 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 	\]
 	as seen in \Cref{sec:complexeigs}. We now consider the following two subcases: 
 	\begin{enumerate}[label=(\roman*)]
-		\item $\lambda \neq 0$ \\ 
+		\item $\lambda \neq 0$: \\ 
 		From \Cref{3.6}, we have 
 		\begin{align*}
 			x' &= \lambda x + \mu y \\
@@ -193,11 +199,11 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 		\[
 		\theta' = -\mu
 		\]
-		As $t \rightarrow \infty$, $r \rightarrow 0$ if $\lambda<0$ and $r \rightarrow \infty$ if $\lambda>0$. 
-		The critical point in this case is a \vb{spiral sink} when $\lambda<0$ and \vb{spiral source} $r \rightarrow 0$ when $\lambda>0$ (see \Cref{fig:trajectory5}).
+		As $t \to \infty$, $r \to 0$ if $\lambda<0$ and $r \to \infty$ if $\lambda>0$. 
+		The critical point in this case is a \vb{spiral sink} (\vb{stable focus}) when $\lambda<0$ and \vb{spiral source} (\vb{unstable focus}) when $\lambda>0$ (see \Cref{fig:trajectory5}). Since $\theta' = -\mu$, if $\mu>0$ then $\theta$ decreases as $t$ evolves and the motion is clockwise; if $\mu<0$ the trajectories are traversed anticlockwise.
 		
-		\item $\lambda = 0$ \\
-		With the equations in subcase (i) holding, we now have that $r'=0 \implies r$ is constant. So the critical point in this case is a \vb{centre}, as in \Cref{fig:trajectory6}.
+		\item $\lambda = 0$: \\
+		With the equations in subcase (i) holding, we now have that $r'=0 \implies r$ is constant so the trajectories are circles in the transformed coordinates. It can be shown that the trajectories are ellipses in the original coordinates, so the critical point in this case is a \vb{centre}, as in \Cref{fig:trajectory6}.
 	\end{enumerate}
 	
 	\begin{figure}[H]
@@ -214,22 +220,24 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 		\label{fig:trajectory6}
 	\end{figure}
 	
-	\item Case 3: Equal Eigenvalues $r_1 = r_2 = r$\\
+	\item Case 3: Real and Equal Eigenvalues $r_1 = r_2 = r < 0$\\
 	For cases with repeated eigenvalues, recall that as seen in \Cref{sec:repeatedeigs}, we can either have 2 or 1 linearly independent eigenvectors associated with $r$ depending on the geometric multiplicities of the eigenvalues. We consider the following two subcases:
 	\begin{enumerate}[label=(\roman*)]
-		\item Two linearly independent eigenvectors \\ 
+		\item Two linearly independent eigenvectors: \\ 
 		The solution is given by 
 		\[
 		\xt = c_1 e^{rt} \xib_1 + c_2 e^{rt} \xib_2
 		\]
-		The ratio $\frac{x}{y}$ is independent of $t$ but depends on the components of $\xib_1$ and $\xib_2$ and on $c_1, c_2$. The critical point in this case is a \vb{proper node} (see \Cref{fig:trajectory3}).
+		The ratio $\frac{x}{y}$ is independent of $t$ but depends on the components of $\xib_1$ and $\xib_2$ and on $c_1, c_2$. Thus every trajectory lies on a straight line through the origin and since $r<0$, the trajectories approach the critical point as $t \to \infty$. The critical point in this case is a \vb{proper node} (\vb{star point}) (see \Cref{fig:trajectory3}).
 		
-		\item One linearly independent eigenvector \\
+		\item One linearly independent eigenvector: \\
 		The solution is given by 
 		\[
 		\xt = c_1 e^{rt} \xib + c_2 e^{rt} (\xib t + \eta)
-		\] The critical point in this case is an \vb{improper node} (see \Cref{fig:trajectory4}).
+		\]
+		Since $r<0$, the trajectories approach the critical point. As $t \to \infty$, the trajectory is dominated by $\xib$ (if $c_2 \neq 0$, the $c_2 te^{rt} \xib$ term dominates; if $c_2 = 0$ then $c_1 e^{rt} \xib$ dominates) so approaches the origin tangent to the line through this eigenvector. The critical point in this case is an \vb{improper node}, or \vb{degenerate node} (see \Cref{fig:trajectory4}).
 	\end{enumerate}
+	If instead the eigenvalues are positive, $r_1 = r_2 = r > 0$, the trajectories are similar but the direction of motion is reversed.
 \end{itemize}
 
 \begin{figure}[H]
@@ -251,12 +259,18 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 We know that if $\vbx(0) = \xta$, then $\xt = \xta$ for all $t$. Now we consider what happens to trajectories starting near $\xta$.
 
 \begin{definition}
-	A critical point $\xta$ is \vb{stable} if $\forall \varepsilon>0$, $\exists \delta>0$ such that $|\vbx(0) - \xta| < \delta$ implies $\xt - \xta|<\varepsilon$ for all $t>0$.
+	A critical point $\xta$ is \vb{stable} if $\forall \varepsilon>0$, $\exists \delta>0$ such that $|\vbx(0) - \xta| < \delta$ implies $|\xt - \xta|<\varepsilon$ for all $t>0$.
 \end{definition}
 
-We say that $\xta$ is unstable if it is not stable.
+\begin{definition}
+	A critical point $\xta$ that is not stable is called unstable.
+\end{definition}
 
-Furthermore, a critical point $\xta$ is \vb{asymptotically stable} if it is stable and $\exists \delta_0 >0$ such that $|\vbx(0) - \xta| < \delta_0$ implies $|\xt - \xta|<\varepsilon$ as $t \to \infty$. A graphical representation of stability and asymptotic stability is given in \Cref{fig:stability}.
+\begin{definition}
+	A critical point $\xta$ is \vb{asymptotically stable} if it is stable and $\exists \delta_0 >0$ such that $|\vbx(0) - \xta| < \delta_0$ implies $|\xt - \xta|<\varepsilon$ as $t \to \infty$.
+\end{definition}
+
+A graphical representation of stability and asymptotic stability is given in \Cref{fig:stability}.
 
 \begin{figure}[!ht]
 	\centering
@@ -275,7 +289,7 @@ and a critical point is $\xta = (0,0)$.
 
 Stability for a linear system depends on the sign of the eigenvalues:
 \begin{itemize}
-	\item If $\Re(r_1) \leq 0$ and $\Re(r_2) \leq 0$, this implies that the linear system is stable as trajectories will return to the origin\footnote{Or, at the very least, the trajectories will not go away from the origin.} as $e^{r_1t}$ and $e^{r_2t}$ decay.
+	\item If $\Re(r_1) \leq 0$ and $\Re(r_2) \leq 0$, this implies that the linear system is stable as trajectories will return to the origin (or, at the very least, the trajectories will not go away from the origin) as $e^{r_1t}$ and $e^{r_2t}$ decay.
 	\item If $\Re(r_1)<0$ and $\Re(r_2)<0$, the system is asymptotically stable.
 	\item If $\Re(r_1)>0$ or $\Re(r_2)>0$, the system is unstable.
 \end{itemize}
