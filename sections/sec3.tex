@@ -216,7 +216,7 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.5\textwidth]{Trajectories/6.pdf}
-		\caption{Trajectories in the phase plane for a linear system with eigenvalues $\pm i\mu$, where the original is a centre \cite[Figure 9.1.6(a)]{boyce}.}
+		\caption{Trajectories in the phase plane for a linear system with eigenvalues $\pm i\mu$, where the origin is a centre \cite[Figure 9.1.6(a)]{boyce}.}
 		\label{fig:trajectory6}
 	\end{figure}
 	
@@ -233,7 +233,7 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 		\item One linearly independent eigenvector: \\
 		The solution is given by 
 		\[
-		\xt = c_1 e^{rt} \xib + c_2 e^{rt} (\xib t + \eta)
+		\xt = c_1 e^{rt} \xib + c_2 e^{rt} (\xib t + \etab)
 		\]
 		Since $r<0$, the trajectories approach the critical point. As $t \to \infty$, the trajectory is dominated by $\xib$ (if $c_2 \neq 0$, the $c_2 te^{rt} \xib$ term dominates; if $c_2 = 0$ then $c_1 e^{rt} \xib$ dominates) so approaches the origin tangent to the line through this eigenvector. The critical point in this case is an \vb{improper node}, or \vb{degenerate node} (see \Cref{fig:trajectory4}).
 	\end{enumerate}
@@ -269,6 +269,8 @@ We know that if $\vbx(0) = \xta$, then $\xt = \xta$ for all $t$. Now we consider
 \begin{definition}
 	A critical point $\xta$ is \vb{asymptotically stable} if it is stable and $\exists \delta_0 >0$ such that $|\vbx(0) - \xta| < \delta_0$ implies $|\xt - \xta|<\varepsilon$ as $t \to \infty$.
 \end{definition}
+
+Intuitively, a critical point being stable means that, starting from a point close to the critical point, the trajectory remains close to the point. A CP being asymptotically stable means that, starting close to the CP, the trajectory will tend towards the critical point.
 
 A graphical representation of stability and asymptotic stability is given in \Cref{fig:stability}.
 
@@ -829,14 +831,20 @@ We've already encountered periodic trajectories around critical points which are
 	\label{fig:periodicsol}
 \end{figure}
 
-The circle in the above example is an example of a limit cycle. By definition, a limit cycle is a periodic trajectory towards which at least one other trajectory tends as $t \to \infty$ or $t \to -\infty$.
+The circle in the above example is an example of what is called a limit cycle.
+
+\begin{definition}
+	A limit cycle is a periodic solution such that at least one other non-closed trajectory tends to them as $t \to \infty$ or $t \to -\infty$ (or both).
+\end{definition}
 
 The limit cycle is (see \Cref{fig:limitcycles}): 
 \begin{itemize}
 	\item Asymptotically stable (or simply stable) if all nearby trajectories tend to it as $t \to \infty$.
 	\item Asymptotically unstable (or simply unstable) if all trajectories go away from the limit cycle as $t \to \infty$.
-	\item Semi-stable (or half-stable) when trajectories may tend to the limit cycle from one side but move away from the limit cycle from the other side.
+	\item Semi-stable (or half-stable) when trajectories tend to the limit cycle from one side but move away from the limit cycle from the other side.
 \end{itemize}
+
+The example in \Cref{eg:periodicsol} was asymptotically unstable.
 
 \begin{figure}[!ht]
 	\centering
@@ -847,10 +855,10 @@ The limit cycle is (see \Cref{fig:limitcycles}):
 
 \subsubsection*{Existence of limit cycles and periodic trajectories}
 
-Consider a set of autonomous functions $F,G$ which are continuously differentiable on a domain $D$.
+Consider a set of autonomous functions $F$ and $G$ which are continuously differentiable on a domain $D$.
 
 \begin{theorem}\label{thrm:periodictraj1}
-	A closed trajectory must enclose a critical point. If this critical point is unique, then it cannot be a saddle point.
+	A closed trajectory must enclose at least one critical point. If this critical point is unique, then it cannot be a saddle point.
 \end{theorem}
 
 \begin{proof}
@@ -864,6 +872,8 @@ Consider a set of autonomous functions $F,G$ which are continuously differentiab
 	\caption{In this example, the trajectories are \href{https://mathworld.wolfram.com/CassiniOvals.html}{Cassini ovals}.}
 	\label{fig:cpnosaddle}
 \end{figure}
+
+The negative version of this theorem is more useful:
 
 \begin{theorem}\label{thrm:periodictraj2}
 	Assume $\p_x F(x,y) + \p_y G(x,y) \neq 0$ in a simply connected domain $D$, then there are no periodic trajectories in $D$.
@@ -905,7 +915,7 @@ Consider a set of autonomous functions $F,G$ which are continuously differentiab
 		&= -4r^2 + 2a^2.
 	\end{align*}
 	
-	So for $r< \frac{a}{\sqrt{2}}$, $\p_x F + \p_y G > 0$. Therefore, there is no periodic trajectory in this region by \Cref{thrm:periodictraj2}.
+	So for $r < \frac{a}{\sqrt{2}}$, $\p_x F + \p_y G > 0$. Therefore, there is no periodic trajectory in this region by \Cref{thrm:periodictraj2}.
 	
 	We already know from the earlier example that $r$ has no periodic trajectory when $0<r<a$, so this theorem is not the most optimum one we can use, but it still offers some idea of a region in the phase plane that does not have a periodic trajectory. 
 \end{eg}

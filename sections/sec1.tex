@@ -867,14 +867,14 @@ This method works when we have to solve a system of ODEs of the form
 \] 
 where $A$ is a constant matrix and $\gt$ contains only exponential, polynomial, sine or cosine terms, or sums or products of these.
 
-To solve the ODE, try $\vbx_p(t)$ of the same form as $\gt$, i.e. exponentials and polynomials of the same degree as $\gt$ but with arbitrary coefficients in the polynomials. The coefficients are then determined by applying $\vbx_p(t)$ into the ODE and then comparing the coefficients of $t, t^0, $ etc. to find which coefficients satisfy the ODE.
+To solve the ODE, try $\vbx_p(t)$ of the same form as $\gt$, i.e. exponentials and polynomials of the same degree as $\gt$ but with arbitrary coefficients in the polynomials. The coefficients are then determined by applying $\vbx_p(t)$ into the ODE and then comparing the coefficients of $t, t^0, $ etc. to find which coefficients satisfy the ODE. This process is similar to solving a linear second-order ODE as described in \Cref{sec:secondorderconst}, with the following exception illustrating the difference.
 
-\textbf{Exception:} If $\gt = \bm{c} e^{rt}$, where $r$ is an eigenvalue of A with algebraic multiplicity $n$, then try:
+\textbf{Exception:} If $\gt = \bm{c} e^{rt}$, where $r$ is an eigenvalue of $A$ with algebraic multiplicity $n$, then try:
 \[
 	\vbx_p(t) = (\bm{a}_n t^n+\bm{a}_{n-1} t^{n-1} + \cdots + \bm{a}_0)e^{rt}
 \]
 
-The process for choosing the trial function is essentially the same as that laid out for single second-order ODEs in \Cref{sec:secondorderconst}.
+For example, if $\gt$ is of the form $\vb{k}e^{rt}$ and $r$ is an eigenvalue of $A$ with algebraic multiplicity 1, we need to use $(\vb{a}t + \vb{b})e^{rt}$ as a trial solution instead of just $\vb{a}te^{rt}$.
 
 
 \begin{eg}\label{eg:nonhom2}
