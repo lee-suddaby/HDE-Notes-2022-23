@@ -6,7 +6,7 @@ Boundary eigenvalue problems are a generalisation to functions of eigenvalue pro
 
 \subsection{Boundary Value \& Eigenvalue Problems}\label{sec:boundaryvalprob}
 
-\begin{eg}
+\begin{eg}\label{eg:bvpmotiv}
 	We consider the following boundary value problem involving a second-order ODE:
 	\[
 	y'' + y = 0 \qquad y'(0)=1, \,\, y(\pi) = a
@@ -24,25 +24,38 @@ Boundary eigenvalue problems are a generalisation to functions of eigenvalue pro
 	
 	If $a \neq -1$, then there is no solution to the boundary value problem.
 	
-	If $a = -1$, there are infinitely many solutions to the boundary value problem as $y(x) = \cos{x} + B\sin{x}$ where $B \in \R$. This is similar to the case of $A\vbx = \bm{b}$ where $A$ is a singular matrix. There are no solutions to this system unless $\bm{b}$ is orthogonal to any vector in the kernel of $A^T$. So, $\bm{b} \cdot \bm{y} = 0$ for all $\bm{y} \in \R^n$ such that $A^T \bm{y} = 0$.
-	
-	Recall the matrix eigenvalue problem: 
-	\begin{equation}\label{eq4.1}
-		A \xib_i = \lambda_i \xib_i
-	\end{equation}
-	The eigenvalue problem helps us find non-trivial solutions to \Cref{eq4.1}, which will exist only if $\lambda_i$ are eigenvalues of $A$. In addition, if $A$ is diagonalisable, then $\xib_i$ form a basis of $\R^n$ and $\xt = \sum_{i=1}^n c_i \xib_i$.
-	
-	If $A^T = A$, the matrix is symmetric and the eigenvectors are orthogonal so $\xib_i \cdot \xib_j = 0$ for $i \neq j$. So, we have that
-	\begin{align*}
-		\vbx &= \sum_{i=1}^n c_i \xib_i \\
-		\xib_j \cdot \vbx &= \sum_{i=1}^n c_i \xib_i \cdot \xib_j
-	\end{align*}
-	but since $\xib_i \cdot \xib_j = 0$ for $i \neq j$, 
-	\begin{align*}
-		\xib_j \cdot \vbx = c_j \Vert \xib_j \Vert^2
-	\end{align*}
-	So, in this case, the fact that the basis is orthogonal makes finding the coefficients $c_i$ easier when we want to represent some vector using this basis.
+	If $a = -1$, there are infinitely many solutions to the boundary value problem as $y(x) = \cos{x} + B\sin{x}$ where $B \in \R$. 
 \end{eg}
+	
+This illustrates one way in which boundary value problems differ from initial value problems: while the IVP
+\[
+	y'' + p(t)y' + q(t)y = g(t), \quad y(t_0) = \alpha, y'(t_0) = \beta
+\]
+is guaranteed to have a unique solution on an open interval $I$ provided that $p$, $q$, and $g$ are continuous on $I$, the boundary value problem
+\[
+	y'' + p(x)y' + q(x)y = g(x), \quad y(x_1) = \alpha, y(x_2) = \beta
+\]
+could have a unique solution, many solutions, or no solution, depending on the boundary conditions.
+	
+The above \Cref{eg:bvpmotiv} having infinitely many solutions in the case of $a = -1$ is similar to the case of $A\vbx = \bm{b}$ where $A$ is a singular matrix. There are no solutions to this system unless $\bm{b}$ is orthogonal to any vector in the kernel of $A^T$. So, $\bm{b} \cdot \bm{y} = 0$ for all $\bm{y} \in \R^n$ such that $A^T \bm{y} = 0$.
+
+Recall the matrix eigenvalue problem: 
+\begin{equation}\label{eq4.1}
+	A \xib_i = \lambda_i \xib_i
+\end{equation}
+The eigenvalue problem helps us find non-trivial solutions to \Cref{eq4.1}, which will exist only if $\lambda_i$ are eigenvalues of $A$. In addition, if $A$ is diagonalisable, then $\xib_i$ form a basis of $\R^n$ and $\xt = \sum_{i=1}^n c_i \xib_i$.
+
+If $A^T = A$, the matrix is symmetric and the eigenvectors are orthogonal so $\xib_i \cdot \xib_j = 0$ for $i \neq j$. So, we have that
+\begin{align*}
+	\vbx &= \sum_{i=1}^n c_i \xib_i \\
+	\xib_j \cdot \vbx &= \sum_{i=1}^n c_i \xib_i \cdot \xib_j
+\end{align*}
+but since $\xib_i \cdot \xib_j = 0$ for $i \neq j$, 
+\begin{align*}
+	\xib_j \cdot \vbx = c_j \Vert \xib_j \Vert^2
+\end{align*}
+So, in this case, the fact that the basis is orthogonal makes finding the coefficients $c_i$ easier when we want to represent some vector using this basis.
+
 
 We now look at an equivalent of the eigenvalue problem $A \xib = \lambda \xib$. We can consider $A$ to be a linear map and we know that linear maps can act on functions. An operator $Ly(x)$ is linear if and only if $L(ay_1(x) + by_2(x)) = aLy_1(x) + bLy_2(x)$
 
@@ -73,7 +86,7 @@ So the generalisation of eigenvalue problems for functions would be $Ly(x) = \la
 			y(0) &= A = 0 \\
 			y(L) &= B \sinh{\mu L} = 0 \implies B=0
 		\end{align*}
-		So, there is no non-trivial solution in this case.
+		So there is no non-trivial solution in this case.
 		
 		\item Case 2: $\lambda = 0$.\\
 		The ODE is given by: $y''= 0$.\\
@@ -86,7 +99,7 @@ So the generalisation of eigenvalue problems for functions would be $Ly(x) = \la
 			y(0) &= B = 0 \\
 			y(L) &= AL = 0 \implies A = 0
 		\end{align*}
-		So, there is no non-trivial solution in this case.
+		So there is no non-trivial solution in this case.
 		
 		\item Case 3: $\lambda = -\mu^2 < 0$.\\
 		The ODE is given by: $y'' + \mu^2 y = 0$.\\
@@ -106,7 +119,7 @@ So the generalisation of eigenvalue problems for functions would be $Ly(x) = \la
 	So, we have a set of eigenvalues and eigenfunctions for the ODE.
 \end{eg}
 
-\begin{eg}
+\begin{eg}\label{eg:bvpmotiv2}
 	\[
 	y'' = \lambda y \qquad y(x+2L) = y(x)
 	\]
@@ -176,19 +189,24 @@ So the generalisation of eigenvalue problems for functions would be $Ly(x) = \la
 
 \subsection{Euler-Fourier Formulas}
 
-The Fourier series is a series that expresses a periodic function as an infinite sum of sines and cosines.
+\begin{definition}
+	A function $f(x)$ is periodic if $f(x+T) = f(x) \,\, \forall x$. We say its	period is $T$. The smallest possible $T$ is the \textbf{fundamental period}.
+\end{definition}
 
 \begin{remark}
 	Note that the convention used here is that that the period is $2L$, as is also used by Boyce. Other texts may differ, however.
 \end{remark}
 
-The Fourier series is given by: 
-\begin{equation}\label{eq:fourier}
-	f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n \cos{\left(\frac{n\pi x}{L}\right)} + b_n \sin{\left(\frac{n\pi x}{L}\right)}\right)
-\end{equation}
-where $a_0, a_n, b_n$ are coefficients that can be calculated using the Euler-Fourier formulas.
+The Fourier series is a series that expresses a periodic function as an infinite sum of sines and cosines.
+\begin{definition}\label{def:fourier}
+	The Fourier series for a function $f(x)$ with period $2L$ is given by: 
+	\[
+		f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n \cos{\left(\frac{n\pi x}{L}\right)} + b_n \sin{\left(\frac{n\pi x}{L}\right)}\right)
+	\]
+	where $a_0, a_n, b_n$ are coefficients that can be calculated using the Euler-Fourier formulas. The coefficients are real if $f(x)$ is real.
+\end{definition}
 
-Considering periodic functions $f(x+2L) = f(x)$, we looked at the eigenvalue problem: $y'' = \lambda y$. The eigenvalues were found to be
+Considering periodic functions $f(x+2L) = f(x)$, we looked at the eigenvalue problem: $y'' = \lambda y$ in \Cref{eg:bvpmotiv2}. The eigenvalues were found to be
 \[
 \lambda_n = -\frac{n^2 \pi^2}{L^2} 
 \]
@@ -240,22 +258,22 @@ And finally,
 \end{align*}
 The calculations of these two are left as an exercise to the reader.
 
-With this information in hand, we are now ready to find the Fourier series for a $2L$ periodic function $f$. Reminder from \Cref{eq:fourier} that the Fourier series is
+With this information in hand, we are now ready to find the Fourier series for a $2L$ periodic function $f$. Reminder from \Cref{def:fourier} that the Fourier series is
 \[
 f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n \cos{\left(\frac{n\pi x}{L}\right)} + b_n \sin{\left(\frac{n\pi x}{L}\right)}\right)
 \]
 where $a_n, b_n$ are Fourier coefficients. The coefficient of function $C_0 = 1$ is $\frac{a_0}{2}$.
 
-To calculate $a_n, b_n$, we project $f(x)$ on the basis as follows (for $m \neq 0$): 
+To calculate $a_n, b_n$, we project $f(x)$ on the basis as follows (for $n \neq 0$): 
 \begin{align*}
-	(f(x), C_m) & = \left( \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n C_n(x) + b_n S_n(x) \right), C_m \right) \\
-	& = \frac{a_0}{2}\cancelto{0}{(1,C_m)} + \sum_{n=1}^{\infty} a_n\cancelto{L\delta_{mn}}{(C_n, C_m)} + \sum_{n=1}^{\infty} b_n\cancelto{0}{(S_n, C_m)} \\
-	&= a_m L.
+	(f(x), C_n) & = \left( \frac{a_0}{2} + \sum_{m=1}^{\infty} \left(a_m C_m(x) + b_m S_m(x) \right), C_n \right) \\
+	& = \frac{a_0}{2}\cancelto{0}{(1,C_n)} + \sum_{m=1}^{\infty} a_m\cancelto{L\delta_{mn}}{(C_m, C_n)} + \sum_{m=1}^{\infty} b_m\cancelto{0}{(S_m, C_n)} \\
+	&= a_n L.
 \end{align*}
 
 Therefore,
 \begin{align*}
-	a_m = \frac{1}{L} (f(x), C_m(x)) = \frac{1}{L} \int_{-L}^L f(x) \cos{\left(\frac{m \pi x}{L}\right)} dx
+	a_n = \frac{1}{L} (f(x), C_n(x)) = \frac{1}{L} \int_{-L}^L f(x) \cos{\left(\frac{n \pi x}{L}\right)} dx
 \end{align*}
 
 Similarly, $b_n$ is calculated by projecting $f$ on $\sin{\left( \frac{n \pi x}{L} \right)}$ and using orthogonality we get:
@@ -294,8 +312,9 @@ Thus, we have the Euler-Fourier formulas:
 	\end{align*}
 	Finally, we calculate the coefficients $b_n$,
 	\begin{align*}
-		b_n &= \frac{1}{3} \int_{-1}^1 f(x) \sin{\left( \frac{n \pi x}{3} \right)} dx = 0.
+		b_n &= \frac{1}{3} \int_{-1}^1 f(x) \sin{\left( \frac{n \pi x}{3} \right)} dx = \frac{1}{3} \int_{-1}^1 \sin{\left( \frac{n \pi x}{3} \right)} dx = 0
 	\end{align*}
+	since $\sin\left(\frac{n \pi x}{3}\right)$ is an odd function.
 	
 	Thus, in sum, the Fourier coefficients are given by
 	\[
@@ -353,7 +372,7 @@ It should not be at all surprising that the more terms we take, the better the a
 	A function $f$ is piecewise continuous on $[a,b]$ if there exists a finite number of points $a = x_0 < x_1 < \cdots < x_n = b$ such that
 	\begin{itemize}
 		\item $f$ is continuous on $(x_i, x_{i+1})$,
-		\item $\lim_{x \to x_i^{\pm}} f(x) = c_i^{\pm} < \infty$.
+		\item $\lim_{x \to x_i^{\pm}} f(x) = c_i^{\pm} < \infty$ ($f(x)$ has a finite limit at the endpoints of each subinterval).
 	\end{itemize}
 \end{definition}
 
@@ -368,6 +387,14 @@ It should not be at all surprising that the more terms we take, the better the a
 		\item $\frac12 \left(\lim_{x\to x_i^-} f(x) + \lim_{x\to x_i^+} f(x)\right)$ where $f$ is discontinuous.
 	\end{itemize}
 \end{theorem}
+
+\begin{remark}
+	Functions like $\frac{1}{x^2}$ and $\log{x}$ have no convergent Fourier series because of the infinite divergences of the function at $x=0$ (so they are not piecewise continuous).
+\end{remark}
+
+\begin{remark}
+	Functions with an infinite number of discontinuities are not guaranteed to have a convergent Fourier series.
+\end{remark}
 
 \begin{eg}[Square wave]\label{eg:squarewave}
 	We consider the square wave function
@@ -447,7 +474,7 @@ This occurrence of the largest oscillation not decreasing in amplitude is called
 
 \subsubsection{Complex Form}\label{sec:fouriercomplex}
 
-Now we will see that we can write the Fourier series in \Cref{eq:fourier} in terms of complex exponentials instead of trigonometric functions. This will make use of the fact that
+Now we will see that we can write the Fourier series in \Cref{def:fourier} in terms of complex exponentials instead of trigonometric functions. This will make use of the fact that
 \[
 \cos(x) = \frac{e^{ix} + e^{-ix}}{2} \quad \text{and} \quad \sin(x) = \frac{e^{ix} - e^{-ix}}{2i}.
 \]
@@ -480,7 +507,7 @@ f(x) = \sum_{n=-\infty}^{\infty} c_n e^{in\pi x/L}.
 \]
 We define a slightly different inner product from the one for real functions in \Cref{eq:innerprod}:
 \begin{equation}\label{eq:innerprodcomplex}
-	\left(u(x), v(x)\right) = \int_{-L}^L = u(x)v^*(x) \,dx,
+	\left(u(x), v(x)\right) = \int_{-L}^L u(x)v^*(x) \,dx,
 \end{equation}
 where $v^*(x)$ is the complex conjugate of $v(x)$. From this definition, observe that
 \[
@@ -500,7 +527,7 @@ And for $n=m$,
 \end{align*}
 Therefore the functions $e^{in\pi x/L}$ are orthogonal for all $n$, hence they form a basis. Finally, we can find the formula for $c_n$:
 \begin{align*}
-	(f(x), e^{im\pi x/L}) &= \sum_n c_n \cancelto{2L\delta_{mn}}{(e^{in\pi x/L}, e^{im\pi x/L})} = 2L c_m \\
+	\left(f(x), e^{im\pi x/L}\right) &= \sum_n c_n \cancelto{2L\delta_{mn}}{(e^{in\pi x/L}, e^{im\pi x/L})} = 2L c_m \\
 	\implies c_m &= \frac{1}{2L} \int_{-L}^L f(x) e^{-im\pi x/L} \,dx.
 \end{align*}
 
@@ -594,6 +621,27 @@ Note that we can still apply these formulas in the case where we have functions 
 	\caption{The function $f(x) = 4x(1-x)$ (black), with its even (green) and odd (red) extensions.}
 	\label{fig:evenoddextension}
 \end{figure}
+
+Algebraically, given some function $f(x)$ for $x \in [0,L]$,
+\begin{itemize}
+	\item Its even extension can be defined as
+	\[
+		h(x) = \begin{cases}
+			f(x) & x \in [0,L] \\
+			f(-x) & x \in [-L,0]
+		\end{cases}
+	\]
+	This will have a cosine series.
+	\item Its odd extension can be defined as
+	\[
+	h(x) = \begin{cases}
+		f(x) & x \in (0,L) \\
+		0 & x = -L,0,L \\
+		f(-x) & x \in (-L,0)
+	\end{cases}
+	\]
+	This will have a sine series.
+\end{itemize}
 
 \subsubsection{Parseval's Theorem}
 
