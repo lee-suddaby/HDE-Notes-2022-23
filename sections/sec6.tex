@@ -1,4 +1,4 @@
-\section{Sturm-Liouville Theory}
+\section{Sturm-Liouville Theory}\label{sec:slmain}
 
 Sturm-Liouville Theory is the theory of second-order boundary value eigenproblems of the form
 \begin{equation}
@@ -69,18 +69,20 @@ Operators that satisfy this property are equivalent to symmetric matrices and ar
 
 \subsection{Sturm-Liouville Eigenvalue Problems}
 
-These are problems of the form
-\begin{equation}\label{eq:sturmliou}
-	Ly = -\left(p(x)y'\right)' + q(x)y = \lambda r(x)y, \quad 0 \leq x \leq 1,
-\end{equation}
-with
-\begin{equation}\label{eq:sturmliouconds}
-	\begin{alignedat}{1}
-		a_1y(0) + a_2y'(0) &= 0 \\
-		b_1y(1) + b_2y'(1) &= 0.
-	\end{alignedat}
-\end{equation}
-We assume that $p$, $q$, $r$, and $p'$ are continuous functions and that $p$ and $r$ are strictly positive.
+\begin{definition}
+	The eigenvalue ODE equation
+	\begin{equation}\label{eq:sturmliou}
+		Ly = -\left(p(x)y'\right)' + q(x)y = \lambda r(x)y, \quad 0 \leq x \leq 1,
+	\end{equation}
+	subject to the boundary conditions
+	\begin{equation}\label{eq:sturmliouconds}
+		\begin{alignedat}{1}
+			a_1y(0) + a_2y'(0) &= 0 \\
+			b_1y(1) + b_2y'(1) &= 0.
+		\end{alignedat}
+	\end{equation}
+	defines a (regular) \textbf{Sturm-Liouville boundary problem}, where the functions $p$, $q$, $r$, and $p'$ are continuous and $p$ and $r$ are strictly positive.
+\end{definition}
 
 We will make use of Lagrange's Identity which was stated in the previous section, i.e. that
 \[
@@ -155,7 +157,7 @@ Properties:
 	Me providing a proof that everyone can use is basically socialism. Pull yourself up by your bootstraps and create a proof yourself.
 \end{proof}
 
-\begin{eg}
+\begin{eg}\label{eg:sl1}
 	We solve the following Sturm-Liouville problem:
 	\[
 	-y'' = \lambda y, \quad\text{with}\quad y(0)=0,\,\, y(1) + y'(1) = 0.
@@ -171,7 +173,7 @@ Properties:
 			y(0) &= A = 0 \\
 			y(1) + y'(1) &= B\sin\mu + \mu B\cos\mu = 0 \text{ where } \tan\mu = -\mu.
 		\end{align*}
-		This has infinitely many solutions (graph the functions to see this), therefore we have eigenvalues of the form $\lambda_n = \mu_n^2$ and eigenfunctions $Y_n(x) = \sin(\mu_n x)$ for $n \in \mathbb{N}$, where $\mu_n$ is the $n$th solution of the equation $\tan\mu = -\mu$.
+		This has infinitely many solutions (graph the functions to see this), therefore we have eigenvalues of the form $\lambda_n = \mu_n^2$ and eigenfunctions $Y_n(x) = \sin(\mu_n x) = \sin(\sqrt{\lambda_n}x)$ for $n \in \mathbb{N}$, where $\mu_n$ is the $n$th solution of the equation $\tan\mu = -\mu$.
 		
 		\item Case 2: $\lambda = 0$. The solution is
 		\[
@@ -193,21 +195,20 @@ Properties:
 	Therefore, the only solutions to this problem are those from Case 1.
 \end{eg}
 
-\subsubsection{Normalisation of Eigenfunctions}
+\subsubsection{Normalisation of Eigenfunctions}\label{sec:normaleigenfuncs}
 
 In the previous example, we found that the eigenfunctions were such that
 \[
-\phi_n = k_n \sin(\mu_nx).
+\phi_n = k_n \sin(\sqrt{\lambda_n}x).
 \]
 
 What we can do is impose the condition $\langle \phi_n, \phi_n \rangle = 1$ to make these functions orthonormal as well as orthogonal. We can calculate the values of $k_n$ as follows:
 \begin{align*}
-	k_n^2 \int_0^1 \sin^2(\mu_n x) \,dx &= 1 \\
-	\frac{k_n^2}{2} \int_0^1 1 - \cos(2\mu_nx) \,dx &= 1 \\
-	\frac{k_n^2}{2} \left(1 - \frac{\sin(2\mu_n)}{2\mu_n}\right) &= 1 \\
-	\frac{k_n^2}{2} \left(1 - \frac{2\sin\mu_n\cos\mu_n}{2\mu_n}\right) &= 1 \\
-	\frac{k_n^2}{2} (1 + \cos^2\mu_n) &= 1 \\
-	k_n &= \left(\frac{2}{1 + \cos^2\mu_n}\right)^{\frac12}.
+	1 &= k_n^2 \int_0^1 \sin^2(\sqrt{\lambda_n} x) \,dx = \frac{k_n^2}{2} \int_0^1 1 - \cos(2\sqrt{\lambda_n}x) \,dx \\
+	&= \frac{k_n^2}{2} \left(1 - \frac{\sin(2\sqrt{\lambda_n})}{2\sqrt{\lambda_n}}\right) = \frac{k_n^2}{2} \left(1 - \frac{2\sin\sqrt{\lambda_n}\cos\sqrt{\lambda_n}}{2\sqrt{\lambda_n}}\right) \\
+	\intertext{From \Cref{eg:sl1}, we found that $\sin\mu + \mu\cos\mu = 0 \implies \frac{1}{\sqrt{\lambda_n}}\sin\sqrt{\lambda_n} = -\cos\sqrt{\lambda_n}$. Making this substitition yields}
+	&= \frac{k_n^2}{2} (1 + \cos^2\sqrt{\lambda_n}) \\
+	k_n &= \left(\frac{2}{1 + \cos^2\sqrt{\lambda_n}}\right)^{\frac12}.
 \end{align*}
 
 \subsection{Further Results on Sturm-Liouville Problems}
@@ -248,6 +249,32 @@ The formula
 c_m = \langle f, \phi_n\rangle
 \]
 is essentially a generalisation of the Euler-Fourier formulas, which gave the expansion for functions $\phi_n$ in terms of cosines and sines.
+
+\begin{eg}
+	Expand the function $f(x) = x$ in the interval $0<x<1$ using the orthonormal set from \Cref{eg:sl1}:
+	\[
+		f(x) = x = \sum_{n=1}^{\infty} c_n \quad\text{with}\quad \phi_n = k_n \sin(\sqrt{\lambda_n} x).
+	\]
+	Using orthonormality, the unknown coefficients are fixed by
+	\begin{align*}
+		c_n &= k_n \int_0^1 x \sin(\sqrt{\lambda_n} x) \,dx \\
+		&= k_n \left( \left[-\frac{x}{\sqrt{\lambda_n}}\cos(\sqrt{\lambda_n} x)\right]_0^1 + \int_0^1 \frac{1}{\sqrt{\lambda_n}} \cos(\sqrt{\lambda_n} x) \,dx \right) \\
+		&= k_n\left( -\frac{1}{\sqrt{\lambda_n}}\cos\sqrt{\lambda_n} + \left[\frac{1}{\lambda_n} \sin(\sqrt{\lambda_n} x)\right]_0^1 \right) \\
+		&= k_n\left( -\frac{1}{\sqrt{\lambda_n}}\cos\sqrt{\lambda_n} + \frac{1}{\lambda_n} \sin\sqrt{\lambda_n} \right)
+		\intertext{Using the relation $\cos\sqrt{\lambda_n}= -\frac{1}{\sqrt{\lambda_n}}\sin\sqrt{\lambda_n}$ like in \Cref{sec:normaleigenfuncs}}
+		&= k_n\left( \frac{1}{\lambda_n}\sin\sqrt{\lambda_n} + \frac{1}{\lambda_n} \sin\sqrt{\lambda_n} \right) \\
+		&= k_n \frac{2\sin\sqrt{\lambda_n}}{\lambda_n} \\
+		&= \frac{2\sqrt{2} \sin\sqrt{\lambda_n}}{\lambda_n (1 + \cos^2\sqrt{\lambda_n})^{1/2}},
+	\end{align*}
+	where in the last line we use the value for $k_n$ calculated in \Cref{sec:normaleigenfuncs}.
+	
+	Therefore the series is given by
+	\begin{align*}
+		f(x) &= \sum_{n=1}^{\infty} c_n k_n \sin(\sqrt{\lambda_n}x) \\
+		&= \sum_{n=1}^{\infty} \frac{2\sqrt{2} \sin(\sqrt{\lambda_n})}{\lambda_n (1 + \cos^2\sqrt{\lambda_n})^{1/2}} \cdot \frac{\sqrt{2}}{(1 + \cos^2\sqrt{\lambda_n})^{1/2}} \sin(\sqrt{\lambda_n}x) \\
+		&= 4\sum_{n=1}^{\infty} \frac{\sin\sqrt{\lambda_n}}{\lambda_n (1 + \cos^2\sqrt{\lambda_n})} \sin(\sqrt{\lambda_n}x).
+	\end{align*}
+\end{eg}
 
 \subsubsection{Convergence Theorem}
 
@@ -347,8 +374,6 @@ If $\mu = \lambda_n$, there is $\begin{cases} \text{no solution if } (f, \phi_n)
 Solving these types of problems in practice is illustrated in Examples 1 and 2 of Section 11.3 of Boyce.
 
 \subsubsection{Transforming ODEs into Sturm-Liouville Form}
-
-\emph{(This material was not covered in the video lectures, so should be considered non-examinable.)}
 
 In this section, we show that any second-order ODE of the form
 \begin{equation}\label{eq:sltransform}

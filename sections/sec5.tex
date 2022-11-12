@@ -19,7 +19,7 @@ The heat equation is given by
 \begin{equation}\label{eq5.1}
 	\p_t u = \alpha^2 \p_{xx} u,
 \end{equation} 
-where $\alpha > 0$.
+where $\alpha > 0$. $\alpha^2$ is called the thermal diffusivity.
 
 The boundary conditions are given by
 \[
@@ -42,7 +42,7 @@ We can solve the heat equation by separation of variables as follows: we look fo
 \begin{equation}\label{eq5.2}
 	u(x,t) = X(x) T(t).
 \end{equation}
-Substituting \Cref{eq5.2} in \Cref{eq5.1}:
+Substituting \Cref{eq5.2} into \Cref{eq5.1}:
 \begin{align*}
 	XT' &= \alpha^2 X''T \\
 	\implies \frac{1}{\alpha^2} \frac{T'}{T} &= \frac{X''}{X}.
@@ -51,7 +51,7 @@ Now we have a function of only $x$ on the RHS and only $t$ on the LHS. This is p
 \[
 X'' = \lambda X \quad\text{and}\quad T' = \lambda \alpha^2 T.
 \]
-To find solutions for $X(x)$, we have boundary conditions $X(0) = X(L) = 0$, so we now want non-trivial solutions to $X(x)$. What we have now is the eigenvalue problem from \Cref{sec:boundaryvalprob} where $\lambda$ is the eigenvalue.
+To find solutions for $X(x)$, we have boundary conditions $X(0) = X(L) = 0$, so we now want non-trivial solutions to $X(x)$. What we have now is the eigenvalue problem from \Cref{eg:eigenvalprob} where $\lambda$ is the eigenvalue.
 
 We consider three cases:
 \begin{itemize}
@@ -107,7 +107,7 @@ Therefore we have a linear set of solutions of the form:
 u_n(x,t) = X_n(x)T_n(t) = \sin\left(\frac{n\pi x}{L}\right) e^{-\alpha^2 n^2 \pi^2 t/L^2}
 \]
 To get a general solution, we use superposition:
-\begin{equation}
+\begin{equation}\label{eq:heateqsol}
 	u(x,t) = \sum_{n=1}^{\infty} c_n e^{-\alpha^2 n^2 \pi^2 t/L^2} \sin\left(\frac{n\pi x}{L}\right).
 \end{equation}
 In order to satisfy the initial condition, we require
@@ -118,6 +118,8 @@ which we observe is nothing but the Fourier series for an odd function (or odd e
 \begin{equation}\label{eq:heatfourier}
 	c_n = \frac{2}{L} \int_0^L f(x)\sin\left(\frac{n\pi x}{L}\right) dx.
 \end{equation}
+
+It is important to check that the infinite sum in \Cref{eq:heateqsol} converges. For $t=0$, if $f(x)$ and $f'(x)$ are piecewise continuous, then the Fourier convergence theorem (\Cref{thrm:fourierconv}) guarantees convergence at $t=0$. For $t>0$, the decreasing exponential dependence in $t$ suggests the series will converge. This will be addressed in \Cref{sec:slmain} on Sturm-Liouville theory.
 
 \begin{eg}\label{eg:heateqn1}
 	We solve the heat equation with boundary conditions given by: $u(0,t) = u(1,t) = 0$, and initial conditions $u(x,0) = f(x)$, where $f$ is the tent function given by
@@ -159,6 +161,9 @@ and initial condition
 \[
 u(x,0) = f(x).
 \]
+
+In the physical interpretation, this corresponds to keeping the ends of the rod at some fixed, finite temperature.
+
 Let
 \begin{equation}
 	u(x,t) = v(x) + w(x,t),
@@ -255,6 +260,8 @@ and the typical initial conditions
 \[
 u(x,0) = f(x).
 \]
+
+This corresponds to both ends of the bar being insulated - the temperature does not vary with position at both ends of the bar.
 
 Using the method of separation of variables:
 \begin{align*}
@@ -452,7 +459,13 @@ Laplace's equation is given by
 
 This equation is time-independent and is widely used in physics describing situations of equilibrium, or those that do not depend explicitly on time, such as modelling the shape of soap bubbles or dispersion of heat in a steady state. Since the equation is not dependent on time, there are no initial conditions; only boundary conditions.
 
-We will solve Laplace's equation on two domains: on a rectangle and on a circle.
+There are two different types of boundary conditions to consider:
+\begin{itemize}
+	\item Dirichlet BCs: function $u(x,y)$ specified at the boundary.
+	\item Neumann BCs: normal derivative of $u(x,y)$ specified at the boundary.
+\end{itemize}
+
+We will solve Laplace's equation with Dirichlet boundary conditions on two domains: on a rectangle and on a circle.
 
 \begin{enumerate}
 	\item \textbf{Laplace's equation on a rectangle.}
@@ -482,7 +495,7 @@ We will solve Laplace's equation on two domains: on a rectangle and on a circle.
 	\]
 	This is a boundary value problem we've solved before, with the following eigenvalues and eigenfunctions:\footnote{Note that the coefficient of $Y$ has the opposite sign to the previous examples, so now there is a non-trivial solution only if $\lambda>0$ i.e. $-\lambda<0$.}
 	\[
-	\lambda_n = -\frac{n^2\pi^2}{b^2}, \quad Y_n(y) = \sin\left(\frac{n\pi y}{b}\right).
+	\lambda_n = \frac{n^2\pi^2}{b^2}, \quad Y_n(y) = \sin\left(\frac{n\pi y}{b}\right).
 	\]
 	Now we solve the second equation
 	\[
@@ -561,9 +574,13 @@ We will solve Laplace's equation on two domains: on a rectangle and on a circle.
 	
 	In this case, we solve
 	\[
-	u_{xx} + u_{yy} = 0, \quad u(r=a, \theta) = f(\theta),
+		u_{xx} + u_{yy} = 0
 	\]
-	where we see that the boundary conditions are given in polar coordinates. To proceed, we need to find the Laplacian in polar coordinates, which is\footnote{For a derivation of this, see \url{https://www.math.ucdavis.edu/~saito/courses/21C.w11/polar-lap.pdf}.}
+	with boundary equations expressed in polar coordinates,
+	\[
+		u(r=a, \theta) = f(\theta), \quad u(r,\theta) \text{ bounded for } r \leq a.
+	\]
+	To proceed, we need to change Laplace's equation into polar coordinates, which is\footnote{For a derivation of this, see \url{https://www.math.ucdavis.edu/~saito/courses/21C.w11/polar-lap.pdf}.}
 	\begin{align*}
 		\frac{1}{r}(r u_r)_r + \frac{1}{r^2}u_{\theta\theta} &= 0 \\
 		\frac{\p^2u}{\p r^2} + \frac{1}{r}\frac{\p u}{\p r} + \frac{1}{r^2}\frac{\p^2u}{\p\theta^2} &= 0.
@@ -667,7 +684,7 @@ We will solve Laplace's equation on two domains: on a rectangle and on a circle.
 	\end{remark}
 	
 	\begin{eg}
-		We solve Laplace's equation on the disc $r \leq 1$ with the Dirichlet boundary conditions
+		We solve Laplace's equation on the disc $r \leq 1$ with the boundary conditions
 		\[
 		u(1, \theta) = \begin{cases} 1 & \text{if } -\frac{\pi}{2} < \theta < \frac{\pi}{2} \\ 0 & \text{otherwise} \end{cases}.
 		\]
@@ -681,7 +698,23 @@ We will solve Laplace's equation on two domains: on a rectangle and on a circle.
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=0.7\textwidth]{LaplaceCircle.pdf}
-		\caption{The solution of Laplace's equation on a disc with Dirichlet boundary conditions.}
+		\caption{The solution of Laplace's equation on a disc.}
 		\label{fig:laplacecircle}
 	\end{figure}
 \end{enumerate}
+
+\pagebreak
+\subsection{Summary}
+
+Given a linear PDE for $u(x,t)$:
+\begin{itemize}
+	\item Assume separation of variables: $u(x,t) = X(x)T(t)$.
+	\item Introduce a separation of variables constant $\lambda$.
+	\item Identify the eigenvalue boundary problem satisfied by $X(x)$ and $\lambda$, which depends upon the boundary conditions.
+	\item Solve for $X(x)$: this step may require some quantisation of $\lambda$ or some constraint on $\lambda$.
+	\item Solve the eigenvalue initial problem satisfied by $T(t)$.
+	\item Write the most general solution as a linear combination of all solutions to the eigenvalue boundary/initial problems.
+	\item Identify any undetermined coefficients using initial conditions.
+	\item Note that there can be more than one separation constant if number of independent variables is greater than 2, e.g. $u(x,y,t)$.
+We will see this later in \Cref{sec:waveeqn2d} when we study the wave equation in two dimensions.
+\end{itemize}

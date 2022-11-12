@@ -69,7 +69,7 @@ We now look at an equivalent of the eigenvalue problem $A \xib = \lambda \xib$. 
 
 So the generalisation of eigenvalue problems for functions would be $Ly(x) = \lambda y(x)$.
 
-\begin{eg}
+\begin{eg}\label{eg:eigenvalprob}
 	\[
 	y'' = \lambda y \qquad y(0) = y(L) = 0
 	\]
@@ -274,7 +274,7 @@ To calculate $a_n, b_n$, we project $f(x)$ on the basis as follows (for $n \neq 
 Therefore,
 \begin{align*}
 	a_n = \frac{1}{L} (f(x), C_n(x)) = \frac{1}{L} \int_{-L}^L f(x) \cos{\left(\frac{n \pi x}{L}\right)} dx
-\end{align*}
+\end{align*}\
 
 Similarly, $b_n$ is calculated by projecting $f$ on $\sin{\left( \frac{n \pi x}{L} \right)}$ and using orthogonality we get:
 \[
