@@ -450,6 +450,55 @@ Finally, using the second initial condition
 	\label{fig:harmonics}
 \end{figure}
 
+\subsubsection{D'Alembert's Solution of the Wave Equation}
+
+Considering the one-dimensional wave equation
+\[
+	\p_{tt} = a^2\p_{xx}u,
+\]
+let's change coordinates:
+\[
+	\xi = x - at, \quad \eta = x + at.
+\]
+Now we rewrite the PDE in new coordinates $u(\xi, \eta)$. To determine the partial derivatives, we need to use the chain rule. First
+\[
+	\frac{\p u(\xi, \eta)}{\p x} = \p_{\xi}u\frac{\p\xi}{\p x} + \p_{\eta}u\frac{\eta}{\p x} = \p_{\xi}u + \p_{\eta}u.
+\]
+Iterating the process:
+\begin{align*}
+	\frac{\p^2u}{\p x^2} &= \frac{\p}{\p x}(\p_{\xi}u + \p_{\eta}u \\
+	&= \p_{\xi\xi}u \p_x\xi + \p_{\eta\xi}u \p_x\eta + \p_{\xi\eta}u \p_x\xi + \p_{\eta\eta}u \p_x\eta \\
+	&= \p_{\xi\xi}u + \p_{\eta\eta}u + 2\p_{\xi\eta}u.
+\end{align*}
+Now using the chain rule again:
+\[
+	\frac{\p u(\xi, \eta)}{\p t} = \p_{\xi}u\frac{\p\xi}{\p t} + \p_{\eta}u\frac{\eta}{\p t} = -a(\p_{\xi}u - \p_{\eta}u).
+\]
+And iterating again:
+\[
+	\frac{\p^2x}{\p t^2} = -s\frac{\p}{\p t} (\p_{\xi}u - \p_{\eta}u) = a^2\p_{\xi\xi}u + a^2\p_{\eta\eta}u - 2a^2\p_{\xi\eta}u.
+\]
+Bringing this all together:
+\begin{align*}
+	\p_{tt} &= a^2\p_{xx}u \\
+	a^2\p_{\xi\xi}u + a^2\p_{\eta\eta}u - 2a^2\p_{\xi\eta}u &= a^2\p_{\xi\xi}u + a^2\p_{\eta\eta}u + 2a^2\p_{\xi\eta}u \\
+	\iff \frac{\p^2u}{\p\xi\p\eta} &= 0 = \frac{\p}{\p\xi}\left(\frac{\p u}{\p\eta}\right).
+\end{align*}
+So
+\[
+	\frac{\p u}{\p\eta} = p'(\eta) \implies \frac{\p}{\p\eta}(u - p(\eta)) = 0 \implies u = p(\eta) + q(\xi),
+\]
+where functions $p$ and $q$ are arbitrary. Therefore, in conclusion
+\[
+	\p_{tt} = a^2\p_{xx}u \implies u(x,t) = p(x+at) + q(x-at),
+\]
+which is called D'Alembert's solution.
+\begin{itemize}
+	\item If $q(x)$ represents a perturbation centred at $x=0$, then $q(x-at)$ describes a perturbation travelling at speed $a$ to the right (i.e. $x>0$ direction).
+	\item If $p(x)$ represents a perturbation centred at $x=0$, then $p(x+at)$ describes a perturbation travelling at speed $a$ to the left (i.e. $x>0$ direction).
+\end{itemize}
+
+
 \subsection{Laplace's Equation}
 
 Laplace's equation is given by
