@@ -226,7 +226,7 @@ For reference, a table of elementary Laplace transforms is given in \Cref{table:
 	\]
 	Applying the Laplace transform:
 	\begin{align*}
-		s^2Y(s) - s\cancelto{0}{y(0)} - \cancelto{1}{y'(0)} - 2sY(s) - 2\cancelto{0}{y(0)} + 2Y(s) &= \frac{2}{s-1} \\
+		s^2Y(s) - s\cancelto{0}{y(0)} - \cancelto{1}{y'(0)} - 2sY(s) + 2\cancelto{0}{y(0)} + 2Y(s) &= \frac{2}{s-1} \\
 		s^2Y(s) - 1 - 2sY(s) + 2Y(s) &= \frac{2}{s-1} \\
 		(s^2-2s+2)Y(s) &= \frac{2}{s-1} + 1 \\
 		(s^2-2s+2)Y(s) &= \frac{s+1}{s-1} \\
@@ -234,7 +234,7 @@ For reference, a table of elementary Laplace transforms is given in \Cref{table:
 	\end{align*}
 	As before, we write $Y(s)$ in terms of partial fractions:
 	\begin{align*}
-		Y(s) = \frac{s+1}{(s-1)s^2-2s+2)} &= \frac{A}{s-1} + \frac{Bs+C}{(s-1)^2+1} \\
+		Y(s) = \frac{s+1}{(s-1)(s^2-2s+2)} &= \frac{A}{s-1} + \frac{Bs+C}{(s-1)^2+1} \\
 		s+1 &= A((s-1)^2+1) + (Bs+C)(s-1).
 	\end{align*}
 	Choosing $s=1$ tells us that $A=2$. For finding $B$ and $C$, we equate coefficients:

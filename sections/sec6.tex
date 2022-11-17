@@ -234,9 +234,9 @@ The inner product:
 	&= \int_0^1 \phi_m(x) \phi_n(x) r(x) \,dx = \delta_{mn} = \begin{cases} 0 & \text{if } m \neq n \\ 1 & \text{if } m = n \end{cases}
 \end{align*}
 
-\subsubsection{Expanding Functions}
+\subsubsection{Expanding Functions}\label{sec:slexpand}
 
-We now want to expand any function in the bases made up of the eigenfunctions $\phi_n$:
+We now want to expand any function in the basis made up of the eigenfunctions $\phi_n$:
 \[
 f(x) = \sum_{n=1}^{\infty}c_n \phi_n(x)
 \]
@@ -250,7 +250,7 @@ c_m = \langle f, \phi_n\rangle
 \]
 is essentially a generalisation of the Euler-Fourier formulas, which gave the expansion for functions $\phi_n$ in terms of cosines and sines.
 
-\begin{eg}
+\begin{eg}\label{eg:slexpand}
 	Expand the function $f(x) = x$ in the interval $0<x<1$ using the orthonormal set from \Cref{eg:sl1}:
 	\[
 		f(x) = x = \sum_{n=1}^{\infty} c_n \quad\text{with}\quad \phi_n = k_n \sin(\sqrt{\lambda_n} x).
@@ -280,7 +280,7 @@ is essentially a generalisation of the Euler-Fourier formulas, which gave the ex
 
 We wish to consider the convergence of the series
 \[
-\sum_{n=1}^{\infty} c_n \phi_n(x) \text{ with } c_n = \langle f, \phi_n\rangle
+\sum_{n=1}^{\infty} c_n \phi_n(x) \quad\text{with}\quad c_n = \langle f, \phi_n\rangle
 \]
 \begin{theorem}
 	Assume $f$ and $f'$ are piecewise continuous. Then $\sum_{n=1}^{\infty} c_n \phi_n(x)$ converges:
@@ -303,75 +303,185 @@ We can also state an analogous formula for Parseval's Identity:
 
 Compare these with the Fourier convergence theorem (\Cref{thrm:fourierconv}) and Parseval's theorem (\Cref{thrm:parseval}).
 
-\subsubsection{Applications}
 
-\subsubsection*{Application 1: Non-homogenous Boundary Value Problems}
+\subsubsection{Non-homogenous Boundary Value Problems}
 
 The non-homogeneous Sturm-Liouville boundary value problem is given by
 \begin{equation}\label{eq6.2.2}
-	Ly = \mu r(x) y + f(x),
+	L[y] = \mu r(x) y + f(x),
 \end{equation}
 with Sturm-Liouville boundary conditions.
 
-Consider
+First, we solve the corresponding homogeneous Sturm-Liouville boundary problem
 \[
-L \phi_n = \lambda_n r(x) \phi_n(x)
+	L[y] = \lambda r(x)y
 \]
-with the same boundary conditions.
+subject to the same boundary conditions. This eigenvalue problem determines an orthonormal set of functions $\phi_n(x)$ satisfying
+\[
+	L[\phi_n] = \lambda_n r(x) \phi_n(x).
+\]
 
-We expand $y(x) = \sum_{n=1}^{\infty} b_n \phi_n(x)$,
-and substitute this into \Cref{eq6.2.2}:
+We expand the solution to the non-homogeneous ODE into this basis
 \[
-\sum_{n=1}^{\infty} b_n L \phi_n = \mu r(x) \sum_{n=1}^{\infty} b_n \phi_n(x) + f(x)
+	y(x) = \sum_{n=1}^{\infty} b_n \phi_n(x).
 \]
-Multiplying this by $\phi_m$ and integrating between 0 and 1 yields
+Substitution into the non-homogeneous ODE from \Cref{eq6.2.2} yields
 \begin{align*}
-	\sum_{n=1}^{\infty} b_n \lambda_n \langle \phi_m, \phi_n\rangle &= \mu \sum_{n=1}^{\infty} b_n \langle \phi_m, \phi_n\rangle + (\phi_m, f) \\
-	b_m \lambda_m &= \mu b_m + (f, \phi_m) \\
-	b_m &= \frac{(f, \phi_m)}{\lambda_m - \mu}.
+	\sum_{n=1}^{\infty} b_n L \phi_n = r(x) \sum_{n=1}^{\infty} b_n \lambda_n \phi_n(x) &= r(x) \sum_{n=1}^{\infty} \mu b_n \phi_n(x) + f(x) \\
+	\implies \sum_{n=1}^{\infty} b_n (\lambda_n - \mu) \phi_n(x) &= \frac{f(x)}{r(x)}.
 \end{align*}
-Hence the expansion is
+Expanding the RHS in the same basis, as in \Cref{sec:slexpand}:
 \[
-y(x) = \sum^{\infty}_{n=1} c_n \phi_n(x) \text{ with } c_n = \frac{(f, \phi_n)}{\lambda_n - \mu}.
+	\frac{f(x)}{r(x)} = \sum_{n=1}^{\infty} c_n \phi_n(x) \quad\text{with}\quad c_n = \left\langle \frac{f}{r}, \phi_n \right\rangle = \int_0^1 r(x) \frac{f(x)}{r(x)} \phi_n(x) \,dx,
 \]
-If $\mu \neq \lambda_n \,\forall n$, we have a unique solution.
+then the non-homogeneous ODE yields
+\[
+	\sum_{n=1}^{\infty} [b_n(\lambda_n - \mu) - c_n] \phi_n(x) = 0.
+\]
+Since $\phi_n(x)$ are orthogonal, each coefficient must vanish:
+\begin{itemize}
+	\item If $\mu \neq \lambda_n$, $n = 1, 2, \ldots$, then each solution is unique,
+	\[
+		b_n = \frac{c_n}{\lambda_n - \mu}.
+	\]
+	\item If there exists $m$ such that $\mu = \lambda_m$, we have the condition
+	\[
+		b_m \cdot 0 - c_m = 0.
+	\]
+	If $c_m = \langle \frac{f(x)}{r(x)}, \phi_m(x)\rangle = 0$, this equation is satisfied and there are infinitely many solutions as $b_m$ is undetermined. If $c_m \neq 0$, there is no solution.
+\end{itemize}
 
-If $\mu = \lambda_n$, there is $\begin{cases} \text{no solution if } (f, \phi_n) \neq 0 \\ \text{infinitely many solutions if } (f, \phi_n) = 0 \end{cases}$
+\begin{eg}
+	Solve
+	\[
+		y'' + 2y = -x, \quad y(0) = y(1) + y'(1) = 0.
+	\]
+	Using the methods we already know for solving such IVPs (method of undetermined coefficients), we can find the solution to be
+	\[
+		y(x) = \frac{\sin(\sqrt{2}x)}{\sin\sqrt{2} + \sqrt{2}\cos\sqrt{2}} - \frac{x}{2},
+	\]
+	but it still serves as a good example to illustrate the Sturm-Liouville method we just discussed. Here, we solve
+	\[
+		-y'' = 2y + x,
+	\]
+	using the auxiliary (homogeneous) Sturm-Liouville boundary value problem
+	\[
+		-y'' = \lambda y, \quad\text{with}\quad y(0) = y(1) + y'(1) = 0.
+	\]
+	From \Cref{eg:sl1} and \Cref{sec:normaleigenfuncs}, the solution to this BVP are given by orthonormal functions $\phi_n(x) = k_n \sin(\sqrt{\lambda_n}x)$, with
+	\[
+		\sin\sqrt{\lambda_n} + \sqrt{\lambda_n}\cos\sqrt{\lambda_n} = 0 \quad\text{and}\quad k_n = \left(\frac{2}{1 + \cos^2\sqrt{\lambda_n}}\right)^{\frac12}.
+	\]
+	Since the set $\{\phi_n(x)\}$ provides a complete basis of functions, we can expand the solution as
+	\[
+		y(x) = \sum_{n=1}^{\infty} b_n \phi_n(x),
+	\]
+	with unknown coefficients $\{b_n\}$. Furthermore, from \Cref{eg:slexpand} we can expand the inhomogeneous function as
+	\[
+		x = \sum_{n=1}^{\infty} c_n \phi_n(x), \quad\text{where}\quad c_n = \frac{2\sqrt{2} \sin\sqrt{\lambda_n}}{\lambda_n (1 + \cos^2\sqrt{\lambda_n})^{1/2}}.
+	\]
+	Then
+	\[
+		y(x) = \sum_{n=1}^{\infty} b_n \phi_n(x) \implies y'' = \sum_{n=1}^{\infty} b_n \phi''_n(x) = \sum_{n=1}^{\infty} b_n\lambda_n\phi_n(x).
+	\]
+	Plugging into the non-homogeneous ODE:
+	\[
+		\sum_{n=1}^{\infty} b_n(-\lambda_n + 2)\phi_n(x) = -\sum_{n=1}^{\infty} c_n \phi_n(x).
+	\]
+	Since $\phi_n(x)$ are orthogonal, we can conclude
+	\[
+		b_n = \frac{c_n}{\lambda_n - 2}.
+	\]
+	Note that the solution is unique since $\lambda_n \neq 2$ (because $\sin\sqrt{2} + \sqrt{2}\cos\sqrt{2} \neq 0$).
+\end{eg}
 
-\subsubsection*{Application 2: Linear PDEs}
+
+\subsubsection{Non-homogeneous PDEs}
 
 \begin{eg}
 	As an example, we consider the generalised heat equation:
 	\[
-	r(x) \p_t u = \p_x\left(p(x) \p_x u\right) - q(x) u + f(x,t),
+		r(x) \p_t u(x,t) = \p_x\left(p(x) \p_x u(x,t)\right) - q(x) u(x,t) + f(x,t),
 	\]
-	where $\p_x\left(p(x) \p_x u\right) - q(x) u = Lu$ with Sturm-Liouville boundary conditions.
-	
-	We can use expansions in the eigenfunctions of the Sturm-Liouville operator: Expand
-	\[
-	u(x,t) = \sum_{n=1}^{\infty} b_n(t) \phi_n(x).
-	\]
-	When we substitute this into the PDE, we get
-	\[
-	r(x) \sum_{n=1}^{\infty} \dot{b}_n(t) \phi_n(x) = \sum_{n=1}^{\infty} b_n(t) \underbrace{L \phi_n(x)}_{=\lambda_nr\phi_n} + f(x,t)
-	\]
-	Multiplying by $\phi_n$ and integrating:
+	where $\p_x\left(p(x) \p_x u\right) - q(x) u = L[u]$ and the boundary conditions are
 	\begin{align*}
-		\sum_{n=1}^{\infty} \dot{b}_n \langle \phi_m, \phi_n\rangle &= - \sum_{n=1}^{\infty} b_n \lambda_n \langle \phi_m, \phi_n\rangle + (\phi_m, f) \\
-		\dot{b}_m + \lambda_m b_m &= (\phi_m, f)(t),
+		\p_x u(0,t) - h_1 u(0,t) &= 0 \\
+		\p_x u(1,t) - h_2 u(1,t) &= 0 \\
+		u(x,0) &= f(x).
 	\end{align*}
-	which is nothing but a collection of ODEs to be solved. Indeed, if we solve this ODE, we get
+	
+	We will follow a similar strategy to the one discussed for ODEs. First, consider the Sturm-Liouville boundary problem associated with the homogeneous PDE
 	\[
-	b_m(t) = c_m e^{-\lambda_m t} + (\text{particular solution})_n
+		r(x) \p_t u(x,t) = \p_x\left(p(x) \p_x u(x,t)\right) - q(x) u(x,t).
 	\]
-	Plug this in to get:
+	The separation of variables $u(x,t) = X(x)T(t)$ yields
 	\[
-	u(x,t) = \sum_m c_m e^{-\lambda m t} \phi_m(x) + (\text{particular solution})_n
+		rXT' = [PX'T]' - qXT \implies \frac{T'}{T} = \frac{1}{rX}[pX']' - \frac{q}{e} = -\lambda,
 	\]
-	We then impose the boundary conditions onto $\phi_n$ to calculate $c_n$
+	thus
+	\begin{align*}
+		T' &= -\lambda T \\
+		-(pX')' + qX &= \lambda rX
+	\end{align*}
+	satisfying $X'(0) - h_1X(0) = X'(1) + h_2X(1) = 0$.
+	
+	Assume the Sturm-Liouville boundary problem is solved - that is, there exist a set of eigenvalues $\{\lambda_n\}$ associated with orthonormal eigenfunctions $\{\phi_n(x)\}$. We now look for a solution to the non-homogeneous PDE by expanding in this basis
+	\[
+		u(x,t) = \sum_{n=1}^{\infty} b_n(t) \phi_n(x).
+	\]
+	We can expand $f(x,t)$ in the same basis:
+	\[
+		\frac{f(x,t)}{r(x)} = \sum_{n=1}^{\infty} \gamma_n(t) \phi_n(x), \quad\text{with}\quad \gamma_n(t) = \left\langle \frac{f(x,t)}{r(x)}, \phi(x) \right\rangle = \int_0^1 r(x) \frac{f(x,t)}{r(x)} \phi_n(x) \,dx.
+	\]
+	When we substitute this into the non-homogeneous PDE, we get
+	\[
+		r(x) \sum_{n=1}^{\infty} \dot{b}_n(t) \phi_n(x) = \sum_{n=1}^{\infty} b_n(t) \left([p(x)\phi'_n(x)]' - q(x)\phi_n(x)\right) + f(x,t).
+	\]
+	Since $\phi_n(x)$ satisfies the Sturm-Liouville boundary problem, it satisfied
+	\[
+		[p(x)\phi'_n(x)]' - q(x)\phi_n(x) = \lambda_n r(x) \phi_n(x),
+	\]
+	so our non-homogeneous PDE yields
+	\begin{align*}
+		r(x) \sum_{n=1}^{\infty} \dot{b}_n(t) \phi_n(x) &= -r(x)\sum_{n=1}^{\infty} b_n(t) \lambda_n \phi_n(x) + f(x,t) \\
+		\implies \sum_{n=1}^{\infty} \dot{b}_n(t) \phi_n(x) &= \sum_{n=1}^{\infty} b_n(t) \lambda_n \phi_n(x) + \sum_{n=1}^{\infty} \gamma_n(t) \phi_n(x).
+	\end{align*}
+	Thus
+	\[
+		\sum_{n=1}^{\infty} \left[\dot{b}_n(t) + \lambda_n b_n(t) - \gamma_n(t)\right] \phi_n(x) = 0,
+	\]
+	and using the orthogonality of the set $\{\phi_n(x)\}$, we can conclude
+	\[
+		\dot{b}_n(t) + \lambda_n b_n(t) = \gamma_n(t), \quad n = 1, 2, 3, \ldots
+	\]
+	This is an infinite countable set of linear first-order ODEs, which can each be solved with the integrating factor $\exp(\lambda_n t)$:
+	\begin{align}
+		\frac{d}{dt}(e^{\lambda_n t}b_n) &= e^{\lambda_n t}\gamma_n \implies e^{\lambda_n t}b_n = \int_0^t e^{\lambda_n s}\gamma(s) \,ds + \alpha_n \nonumber \\
+		\label{eq:slpdesbn}
+		\implies b_n(t) &= e^{\lambda_n t} \int_0^t e^{\lambda_n s}\gamma(s) \,ds + e^{-\lambda_n t}\alpha_n, \quad\text{with}\quad \alpha_n = b_n(0).
+	\end{align}
+	The initial values $b_n(0)$ are determined from
+	\begin{align*}
+		u(x,0) &= \sum_{n=1}^{\infty} b_n(0)\phi_n(x) = f(x) \\
+		\implies b_n(x) &= \langle f, \phi_n\rangle = \int_0^1 r(x)f(x)\phi_n(x)\,dx = \alpha_n.
+	\end{align*}
+	In conclusion, the general solution to the non-homogeneous PDE boundary problem is
+	\[
+		u(x,t) = \sum_{n=1}^{\infty} b_n(t)\phi_n(x),
+	\]
+	where the set $\{b_n(t)\}$ is given as above in \Cref{eq:slpdesbn} and the set $\{\phi_n(x)\}$ solved the auxiliary Sturm-Liouville boundary problem.
 \end{eg}
 
 Solving these types of problems in practice is illustrated in Examples 1 and 2 of Section 11.3 of Boyce.
+
+In summary, the strategy for solving non-homogeneous PDEs is:
+\begin{itemize}
+	\item Find the eigenvalues $\lambda_n$ and normalised eigenfunctions $\phi_n$ of the corresponding homogeneous problem.
+	\item Calculate coefficients $\gamma_n(t)$ and $\alpha_n$.
+	\item Evaluate the integrals for $b_n(t)$.
+	\item Sum the infinite series of $b_n(t) \phi_n(x)$ terms.
+\end{itemize}
+
 
 \subsubsection{Transforming ODEs into Sturm-Liouville Form}
 
@@ -434,19 +544,13 @@ So, in summary, and ODE of the form in \Cref{eq:sltransform} can be transformed 
 
 Recall that the general Sturm-Liouville Problems are given by
 \[
-Ly = -\left(p(x)y'\right)' + q(x)y = \lambda r(x) y \qquad 0 \leq x \leq 1.
+	L[y] = -\left(p(x)y'\right)' + q(x)y = \lambda r(x) y \qquad 0 \leq x \leq 1.
 \]
-So far, we have assumed that $p(x) > 0$ and the boundary conditions ensure that Lagrange identity holds ($(Lu, v) = (u, Lv)$). Now, we look at the case where $p(x) \rightarrow 0$ as $x \rightarrow 0$.
+where it is assumed that $p$ is differentiable, $q$ and $r$ are continuous, and $p(x)>0$, $r(x)>0$ at all points in the closed interval $[0,1]$.
 
-Note that $(Lu, v) = (u, Lv)$ since
-\[
-(Lu, v) - (u, Lv) = \left[-p(x) u' v + p(x) u v' \right]_0^1 = 0
-\]
-if $p(x) \rightarrow 0$ as $x \rightarrow 0$ and $u', u, v', v$ are bounded as $x \rightarrow 0$.
+But for some problems of physical interest these conditions are satisfied only for the open interval $(0,1)$. Sturm–Liouville problems for which the conditions on $p$, $q$ and $r$ are satisfied on $0 < x < 1$ but are not satisfied at $x = 0$ and/or $x = 1$ are called \textbf{singular}.
 
-So this is now what we call a singular SL problem.
-
-\begin{eg}[Bessel Equation]
+\begin{eg}[Bessel's equation of order $m$]\label{eg:bessel}
 	\[
 	-\left(xy'\right)' + \frac{m^2}{x}y = \lambda xy, \quad\text{with}\quad y(x) \text{ bounded as } x \rightarrow 0, \,\, y(1) = 0
 	\]
@@ -463,11 +567,11 @@ So this is now what we call a singular SL problem.
 		\lambda\frac{d^2y}{dt^2} + \frac{\lambda}{t} \frac{dy}{dt} + \lambda\left(1- \frac{m^2}{t^2}\right)y &= 0 \nonumber \\
 		\label{eq:bessel}\implies \frac{d^2y}{dt^2} + \frac{1}{t} \frac{dy}{dt} + \left(1- \frac{m^2}{t^2}\right)y &= 0
 	\end{align}
-	which is the Bessel equation. The new boundary conditions are that $y$ is bounded as $t \to 0$, and $y(\sqrt{\lambda}) = 0$.
+	which is the Bessel equation of order $m$. The new boundary conditions are that $y$ is bounded as $t \to 0$, and $y(\sqrt{\lambda}) = 0$.
 	
 	The solution to the Bessel equation is given by
 	\[
-	y(t) = A J_m(t) + BY_m(t).
+		y(t) = A J_m(t) + B Y_m(t).
 	\]
 	The functions $J_m$ and $Y_m$ are called the Bessel functions of the first and second kind, respectively. These cannot be written down exactly, so we must make do with their power series representations. Information on the power series for $J_m$ and $Y_m$ - and many other properties of Bessel functions - can be found in the \href{https://dlmf.nist.gov/}{NIST Digital Library of Mathematical Functions}. For completeness, we state them here:
 	\begin{align}
@@ -475,23 +579,120 @@ So this is now what we call a singular SL problem.
 		J_m(t) &= (\tfrac12 t)^m \sum_{k=0}^{\infty} (-1)^k \frac{(\frac14 t^2)^k}{k!\Gamma(m+k+1)} \\
 		Y_m(t) &= \frac{J_m(t)\cos(m\pi) - J_{-m}(t)}{\sin(m\pi)}.
 	\end{align}
+	Note that $J_0(0) = 1$, $J_m(0)=0$, and $Y_m(x) \to -\infty$ as $x \to 0$ for $m \geq 1$.
 	
 	Here, we want $y$ to be bounded as $t \rightarrow 0$ which requires $B=0$. So, 
 	\[
-	y(t) = A J_m(t) \implies y(x) = J_m(\sqrt{\lambda}x) 
+		y(t) = A J_m(t) \implies y(x) = A J_m(\sqrt{\lambda}x) 
 	\]
 	\[
-	y(x=1) = 0 \implies J_m(\sqrt{\lambda}) = 0
+		y(x=1) = 0 \implies J_m(\sqrt{\lambda}) = 0
 	\]
-	By Sturm-Liouville theory $\lambda_{mj}$ are eigenvalues, where $\sqrt{\lambda_{mj}}$ is the $j$th zero of $J_m$.
+	By Sturm-Liouville theory, $\lambda_{mj}$ form an infinite set of positive eigenvalues, where $\sqrt{\lambda_{mj}}$ is the $j$th zero of $J_m$, and the corresponding eigenfunctions are $\phi_n(x) = J_m(\sqrt{\lambda_{mj}}x)$.
 	
 	We also have orthogonality since
 	\[
-	\int_0^1 r(x) J_m (\sqrt{\lambda_{mj}} x) J_m (\sqrt{\lambda_{mk}} x) \,dx = 0 \quad \text{if } k \neq j.
+		\int_0^1 x J_m (\sqrt{\lambda_{mj}} x) J_m (\sqrt{\lambda_{mk}} x) \,dx = 0 \quad \text{if } k \neq j.
 	\]
 \end{eg}
 
+% todo - graph of bessel functions??
+
+To understand what type of boundary conditions are acceptable for single Sturm-Liouville boundary problems, and whether the eigenvalues and eigenvectors of single SL problems share the properties we found for regular SL boundary problems (such as real valued $\lambda_n$, orthogonal $\phi_n$, expansion of $f(x)$ in terms of $\phi_n$) we consider the Lagrange identity
+\[
+	(Lu, v) - (u, Lv) = \int_0^1 L[u]v - uL[v] \,dx = 0.
+\]
+Suppose the SL problem is singular at $x=0$ but not at $x=1$. Consider
+\[
+	\int_{\varepsilon}^1 L[u]v - uL[v] \,dx = -p(x) [u'(x)v(x) - u(x)v'(x)]_{\varepsilon}^1
+\]
+If $u$ and $v$ satisfy the homogeneous boundary condition $b_1 y(1) + b_2 y'(1) = 0$, the boundary term at $x=1$ vanishes. Thus in the limit $\varepsilon \to 0$,
+\[
+	\int_0^1 L[u]v - uL[v] \,dx = \lim_{\varepsilon \to 0} p(\varepsilon) [u'(\varepsilon)v(\varepsilon) - u(\varepsilon)v'(\varepsilon)].
+\]
+If this limit is equal to zero, then Lagrange's identity holds and the singular SL problem is self-adjoint. In addition, if a singular SL problem has a discrete set of eigenvalues and eigenfunctions (which is not generally the case), Lagrange's identity can be used to prove that
+\begin{itemize}
+	\item The eigenvalues are real.
+	\item The eigenfunctions are orthogonal with respect to the weight function $r(x)$ ($\langle \phi_n, \phi_m \rangle = 0$ for $n \neq m$).
+	\item A given function $f(x)$ can be expanded as a series of eigenfunctions.
+\end{itemize}
+
+
 \subsection{Wave Equation in 2D}\label{sec:waveeqn2d}
+
+We will solve the wave equation in 2D,
+\[
+	\p_{tt}u = a^2(\p_{xx}u + \p_{yy}u),
+\]
+which can be written in polar coordinates as 
+\[
+	\p_{tt}u = a^2(\p_{rr}u + \frac{1}{r}\p_r u + \frac{1}{r^2}\p_{\theta\theta}u).
+\]
+This equation determines the bounded displacement of a circular drum with unit radius. We assume the initial displacement $f(r)$ is independent of $\theta$; thus, we assume $u(r,t)$ satisfies
+\[
+	\p_{tt}u = a^2(\p_{rr}u + \frac{1}{r}\p_r u), \quad 0<r<1, \quad t>0,
+\]
+with boundary condition
+\[
+	u(1,t) = 0,
+\]
+and initial conditions
+\[
+	u(r,0) = f(r), \quad \p_t u(r,0) = 0.
+\]
+
+Separation of variables $u(r,t) = R(r)T(t)$ yields
+\[
+	\frac{R'' + \frac{1}{r}R'}{R} = \frac{1}{a^2} \frac{T''}{T} = -\lambda^2,
+\]
+yielding the ODEs
+\[
+	rR'' + R' + \lambda^2rR = 0, \quad T'' + \lambda^2 a^2 T = 0.
+\]
+The ODE for $T(t)$ has the solution
+\[
+	T(t) = k_1\sin(\lambda at) + k_2\cos(\lambda at).
+\]
+Making the change of variables $\xi = \lambda r$ in the $R$ ODE yields
+\[
+	\xi \frac{d^2R}{d\xi^2} + \frac{dR}{d\xi} + \xi R = 0.
+\]
+This is nothing but Bessel's equation of order 0 (see \Cref{eg:bessel}) which has the solution
+\[
+	R = c_1 J_0(\xi) + c_2 Y_0(\xi) = c_1 J_0(\lambda r) + c_2 Y_0(\lambda r).
+\]
+Since $R$ is bounded as $r \to 0$, we must have $c_2=0$. Applying the boundary condition $u(1,t)=0$ then requires $J_0(\lambda)=0$. Hence the positive zeros of $J_0(\lambda)$ give the eigenvalues $\lambda_1, \lambda_2, \ldots$ and the corresponding eigenfunctions are $\phi_n = J_0(\lambda_n r)$.
+
+Putting this all together, the fundamental solutions to the 2D wave equation are
+\[
+	u_n(r,t) = J_0(\lambda_n r)\sin(\lambda at), \quad v_n(r,t) = J_0(\lambda_n r)\cos(\lambda at),
+\]
+and the general solution is
+\begin{align*}
+	u(r,t) &= \sum_{n=1}^{\infty} k_n u_n(r,t) + c_n v_n(r,t) \\
+	&= \sum_{n=1}^{\infty} k_n J_0(\lambda_n r)\sin(\lambda at) + c_n J_0(\lambda_n r)\cos(\lambda at).
+\end{align*}
+Applying the initial condition $\p_t u(r,0) = 0$:
+\[
+	\p_t u(r,0) = \sum_{n=1}^{\infty} k_n \lambda a J_0(\lambda_n r) = 0 \implies k_n = 0,
+\]
+and making use of the other initial condition,
+\[
+	u(r,0) = \sum_{n=1}^{\infty} c_n J_0(\lambda_n r) = f(r).
+\]
+Using the orthogonality of $J_0$, the coefficients $c_n$ are found by projecting $f(r)$ onto the basis of eigenfunctions:
+\[
+	c_n = \frac{\langle f, \phi_n\rangle}{\langle \phi_n, \phi_n\rangle} = \frac{\int_0^1 rf(r)J_0(\lambda_n r)dr}{\int_0^1 r [J_0(\lambda_n r)]^2dr},
+\]
+and the particular solution is
+\[
+	u(r,t) = \sum_{n=1}^{\infty} c_n J_0(\lambda_n r)\cos(\lambda at).
+\]
+
+
+\subsection{(Non-examinable) Wave Equation in 2D}\label{sec:waveeqn2dne}
+
+\emph{(This section is carried over from last year's lectures, which gave a much more in-depth treatment of the wave equation in 2D than the lectures of 2022-23, as well as containing some of my own additions that went beyond the scope of the course then. As such, it is considered non-examinable, but much of the work is using methods we've seen in this course, so it may still be of interest.)}
 
 Recall from \Cref{sec:waveeqn} that the wave equation may be written as
 \begin{equation}
@@ -499,7 +700,7 @@ Recall from \Cref{sec:waveeqn} that the wave equation may be written as
 \end{equation}
 where we set the wave speed $a=1$. Note that the RHS is the Laplacian of $u$. In one dimension, this equation described the vibration of a string. In two dimensions, it describes the vibrations of a membrane.
 
-We will solve this equation in two geometries: on a rectangle and on a circle, making use of some of the results from Sturm-Liouville theory that were encountered in the previous sections.
+We will solve this equation in two geometries: on a rectangle and on a disc, making use of some of the results from Sturm-Liouville theory that were encountered in the previous sections.
 
 \begin{enumerate}
 	\item \textbf{2D wave equation on a rectangle.}
@@ -554,7 +755,6 @@ We will solve this equation in two geometries: on a rectangle and on a circle, m
 	\[
 	f(x,y) = u(x,y,0) = \sum_{n=1}^{\infty} \sum_{m=1}^{\infty} A_{mn} \sin\left(\frac{n\pi x}{a}\right) \sin\left(\frac{m\pi y}{b}\right).
 	\]
-	\emph{(Note that in the lecture, the following calculations for the orthogonality of the functions and value of $A_{mn}$ were omitted - only the final answer in \Cref{eq:wave2drectcoeff} was given.)}
 	
 	We wish to show that the functions $Z_{mn}(x,y) = \sin\left(\frac{n\pi x}{a}\right) \sin\left(\frac{m\pi y}{b}\right)$ are orthogonal. To do this, we use the following inner product for functions of two variables:
 	\[
@@ -688,7 +888,6 @@ We will solve this equation in two geometries: on a rectangle and on a circle, m
 		\label{eq:wave2ddiscprop2}
 		B_{mn} &\propto \int_0^{2\pi} \int_0^1 f(r,\theta) \sin(m\theta) J_m(\mu_{mn}r) r \,dr\,d\theta.
 	\end{align}
-	\emph{(Note that all calculations from this point up to ``Individual modes of vibration'' were not featured in the lecture. Only the proportionalities in \Cref{eq:wave2ddiscprop1,eq:wave2ddiscprop2} were given.)}
 	
 	To calculate the exact coefficients, we use the fact that the functions
 	\begin{align*}
@@ -752,7 +951,7 @@ We will solve this equation in two geometries: on a rectangle and on a circle, m
 	
 	Viewing these individual modes is an interesting extension: see for example \href{https://www.acs.psu.edu/drussell/demos/membranecircle/circle.html}{this page}, or \href{https://en.wikipedia.org/wiki/Vibrations_of_a_circular_membrane#Animations_of_several_vibration_modes}{Wikipedia} with animations of the modes for the first few values of $m$ and $n$. Some stills are also shown in \Cref{fig:wave2d}.
 	
-	\begin{figure}
+	\begin{figure}[h!]
 		\makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{DrumVibration1.png}}
 		\caption{Solutions of the 2D wave equation on a disc (representing the modes of vibration of a drum). Note that this figure switches $m$ and $n$ from our usage. (source: \href{http://www.bio-physics.at/wiki/index.php?title=File:Vibrations.png}{bio-physics-wiki}).}
 		\label{fig:wave2d}
@@ -760,8 +959,6 @@ We will solve this equation in two geometries: on a rectangle and on a circle, m
 \end{enumerate}
 
 \subsubsection{More General Case}
-
-\emph{(This material is most definitely non-examinable.)}
 
 So far, we have only considered a certain case of the wave equation - with wave speed $c=1$, the initial speed being zero everywhere, and radius 1 in the disc case. Out of interest, we now state the solutions in the general case:
 
@@ -833,9 +1030,7 @@ So far, we have only considered a certain case of the wave equation - with wave 
 
 \subsubsection{Examples}
 
-\emph{(These examples were not covered in the lectures)}
-
-Note that while these examples follow the statement of the general case of the 2D wave equation, they are in fact (nearly) example of the specific cases we solved in \Cref{sec:waveeqn2d}. The only difference is that in \Cref{eg:waveeqn2drect}, we take $c=6$ instead of $c=1$ for wave speed.
+Note that while these examples follow the statement of the general case of the 2D wave equation, they are in fact (nearly) example of the specific cases we solved in \Cref{sec:waveeqn2dne}. The only difference is that in \Cref{eg:waveeqn2drect}, we take $c=6$ instead of $c=1$ for wave speed.
 
 \begin{eg}\label{eg:waveeqn2drect}
 	A $2 \times 3$ rectangular membrane, with $c=6$, is deformed to have an initial shape given by
