@@ -15,22 +15,26 @@ While the methods used to solve second-order linear ODEs that were introduced in
 	\begin{itemize}
 		\item For $f(t)=1$,
 		\[
-		F(s) = \int_0^{\infty} e^{-st}\,dt = \left[\frac{e^{-st}}{-s}\right]_0^{\infty} = \frac{1}{s}.
+			F(s) = \int_0^{\infty} e^{-st}\,dt = \left[\frac{e^{-st}}{-s}\right]_0^{\infty} = \frac{1}{s}. \tag{$s>0$}
 		\]
 		\item For $f(t)=e^{at}$,
 		\[
-		F(s) = \int_0^{\infty} e^{-st}e^{at}\,dt = \left[\frac{e^{-(s-a)t}}{-(s-a)}\right]_0^{\infty} = \frac{1}{s-a}. \tag{$s>a$}
+			F(s) = \int_0^{\infty} e^{-st}e^{at}\,dt = \left[\frac{e^{-(s-a)t}}{-(s-a)}\right]_0^{\infty} = \frac{1}{s-a}. \tag{$s>a$}
 		\]
-		\item For $f(t) = \cos(at)$,
-		\begin{align*}
-			F(s) &= \int_0^{\infty} e^{-st}\cos(at)\,dt \tag{$s>0$} \\
-			&= \Re \int_0^{\infty} e^{-st}e^{iat} \,dt = \Re \left[\frac{e^{-st}e^{iat}}{ia-s}\right]_0^{\infty} \\
-			&= \Re \frac{1}{s-ia} = \Re \frac{s+ia}{s^2+a^2} = \frac{s}{s^2+a^2}.
-		\end{align*}
 		\item For $f(t) = \sin(at)$,
+		\begin{align*}
+			F(s) &= \int_0^{\infty} e^{-st}\sin(at) \,dt \\
+			&= \left[e^{-st}\frac{\cos(at)}{a}\right]_0^{\infty} - \frac{s}{a}\int_0^{\infty} e^{-st}\cos(at) \,dt \\
+			&= \frac{1}{a} - \frac{s}{a}\int_0^{\infty} e^{-st}\cos(at) \,dt \\
+			&= \frac{1}{a} - \frac{s^2}{a^2}\int_0^{\infty} e^{-st}\sin(at) \,dt \\
+			\left(1+\frac{s^2}{a^2}\right) F(s) &= \frac{1}{a} \\
+			F(s) &= \frac{a}{s^2+a^2}. \tag{$s>0$}
+		\end{align*}
+		\item For $f(t) = \cos(at)$,
 		\[
-		F(s) = \frac{a}{s^2+a^2}.
+			F(s) = \frac{s}{s^2+a^2}.
 		\]
+		
 	\end{itemize}
 \end{eg}
 
@@ -140,7 +144,7 @@ The method of using the Laplace transform to solve second-order linear ODEs is b
 	\]
 	Therefore
 	\begin{align*}
-		Y(s) &= \frac{2s}{s^2+1} + \frac53\cdot\frac{1}{s^2+1} - \frac23\cdot\frac{1}{s^2+4} \\
+		Y(s) &= \frac{2s}{s^2+1} + \frac53\cdot\frac{1}{s^2+1} - \frac13\cdot\frac{2}{s^2+4} \\
 		&= 2\Lap{\cos{t}} + \frac53\Lap{\sin{t}} - \frac13\Lap{\sin(2t)} \\
 		\implies y(t) &= 2\cos{t} + \frac53\sin{t} - \frac13\sin(2t).
 	\end{align*}
@@ -152,7 +156,8 @@ Now that we've seen how to use the Laplace transform to solve ODE, we see that i
 
 More properties of the Laplace transform:
 \begin{enumerate}
-	\item S-shift: $\Lap{e^{-ct}f(t)} = F(s+c)$.
+	\item s-shift: $\Lap{e^{-ct}f(t)} = F(s+c)$.
+	\item t-shift: $\Lap{f(t-c)} = e^{-sc}F(s)$ if $c \geq 0$ and $f(t)=0$ for $t<0$.
 	\item Derivative in $s$: $\Lap{tf(t)} = -\frac{d}{ds}F(s)$.
 	\item Scaling: $\Lap{f(ct)} = \frac{1}{c} F\left(\frac{s}{c}\right)$.
 \end{enumerate}
@@ -161,6 +166,10 @@ More properties of the Laplace transform:
 	All three properties essentially follow from the definition of the Laplace transform.
 	\begin{enumerate}
 		\item \[\Lap{e^{-ct}f(t)} = \int_0^{\infty} e^{-st}e^{-ct}f(t) \,dt = \int_0^{\infty} e^{-(s+c)t}f(t) \,dt = F(s+c).\]
+		\item Let $u=t-c$, then
+		\[
+			\int_0^{\infty} e^{-st}f(t-c) \,dt = \int_{-c}^{\infty} e^{-s(u+c)}f(u) \,du = \int_0^{\infty} e^{-sc}e^{-su}f(u) \,du = e^{-sc}F(s).
+		\]
 		\item \[\Lap{tf(t)} = \int_0^{\infty} e^{-st}tf(t) \,dt = \int_0^{\infty} -\frac{d}{ds}\left(e^{-st}\right) f(t) \,dt = -\frac{d}{ds} \int_0^{\infty} e^{-st}f(t) \,dt = -\frac{d}{ds}F(s).\]
 		\item We have
 		\[
@@ -276,11 +285,16 @@ f_{\text{shift}} = f(t-c)u_c(t).
 	\label{fig:clipping}
 \end{figure}
 
-The following property is important:
+The Laplace transform of the unit step function ($c \geq 0$) is
+\[
+	\Lap{u_c(t)} = \int_0^{\infty} e^{-st}u_c(t)\,dt = \int_c^{\infty}e^{-st}\,dt = \frac{e^{-sc}}{s}, \quad s>0.
+\]
+Here we can see a connection to the t-shift property of the Laplace transform from earlier, which stated that $\Lap{f(t-c)} = e^{-sc}F(s)$ if $c \geq 0$ and $f(t)=0$ for $t<0$. Functions satisfying these conditions can be nicely described as $f(t-c)u_c(t)$, thus
 \begin{equation}\label{eq:laplacediscont}
 	\Lap{f(t-c)u_c(t)} = e^{-sc}F(s).
 \end{equation}
 
+This property can also be proved more directly:
 \begin{proof}
 	From the definition of the Laplace transform,
 	\[
@@ -338,7 +352,7 @@ Now we solve an ODE with discontinuous RHS:
 	\end{align*}
 	where
 	\[
-	G(s) = \frac{1}{s(s-1)(s-2)} = \frac{A}{s} + \frac{B}{s-1} + \frac{C}{s-2} = \frac{1}{2s} - \frac{1}{s-1} + \frac{1}{2(s-2)}.
+	G(s) = \frac{1}{s(s-1)(s-2)} = \frac{A}{s} + \frac{B}{s-1} + \frac{C}{s-2} = \frac12\frac{1}{s} - \frac{1}{s-1} + \frac12\frac{1}{(s-2)}.
 	\]
 	Applying the inverse Laplace transform to $G(s)$ gives
 	\[
@@ -350,19 +364,67 @@ Now we solve an ODE with discontinuous RHS:
 	\]
 \end{eg}
 
+\begin{eg}
+	Solve the initial value problem
+	\begin{align*}
+		2y'' + y' + 2y &= u_5(t) - u_{20}(t) = \begin{cases}
+			1, & 5 \leq t < 20 \\
+			0, & 0 \leq t < 5 \text{ and } t \geq 20
+		\end{cases} \\
+		y(0) &+ y'(0) = 0.
+	\end{align*}
+	First, take the Laplace transform:
+	\begin{align*}
+		2s^2Y - 2sy(0) - 2y'(0) + sY - y(0) + 2Y &= \frac{e^{-5s} - e^{-20s}}{s} \\
+		Y(s) &= \frac{e^{-5s} - e^{-20s}}{s(2s^2 + s + 2)} \\
+		&= (e^{-5s} - e^{-20s})G(s),
+	\end{align*}
+	where
+	\[
+		G(s) = \frac{1}{s(2s^2 + s + 2)}.
+	\]
+	Recall the t-shift: $e^{-sc}G(s) = \Lap{g(t-c)u_c(t)}(s)$. Therefore
+	\[
+		y(t) = u_5(t)g(t-5) - u_{20}(t)g(t-20), \quad\text{with}\quad g(t) = \Lapinv{G(s)}.
+	\]
+	Now we decompose $G(s)$ into partial fractions:
+	\[
+		G(s) = \frac{a}{s} + \frac{bs+c}{2s^2+s+2} = \frac{1/2}{s} - \frac{s+1/2}{2s^2+s+2}.
+	\]
+	To deal with the second term, complete the square in the denominator:
+	\[
+		\frac{s+\sfrac12}{2s^2+s+2} = \frac12 \frac{(s+\sfrac14)+\sfrac14}{(s+\sfrac14)^2+\sfrac{15}{16}}.
+	\]
+	Using the results (see \Cref{table:laplace})
+	\[
+		\Lap{e^{at}\sin(bt)} = \frac{b}{(s-a)^2+b^2}, \quad \Lap{e^{at}\cos(bt)} = \frac{s-a}{(s-a)^2+b^2}
+	\]
+	we derive
+	\[
+		g(t) = \frac12 - \frac12 \left(e^{-t/4}\cos\left(\frac{\sqrt{15}}{4}t\right) + \frac{1}{\sqrt{15}} e^{-t/4}\sin\left(\frac{\sqrt{15}}{4}t\right)\right).
+	\]
+	Therefore the solution for $y(t)$ is
+	\[
+		y(t) = u_5(t)g(t-5) - u_{20}g(t-20)
+	\]
+	where $g(t)$ is given above.
+\end{eg}
+
 \subsection{Solving ODEs with Impulsive Forcing}
 
-Impulsive forcing in an ODE $ay''+by'+cy=g(t)$ means that the inhomogeneity $g(t)$ acts only for a short period of time.
+Impulsive forcing in an ODE $ay''+by'+cy=g(t)$ means that the inhomogeneity $g(t)$ acts only for a short period of time, $t_0\tau < t < t_0+\tau$.
 
-With such an ODE, we want to impose the condition
+With such an ODE, we want to impose the condition on the impulse
 \[
-\int_{t_0-\tau}^{t_0+\tau} g(t) \,dt = 1.
+	I(\tau) = \int_{t_0-\tau}^{t_0+\tau} g(t) \,dt = 1.
 \]
+This impulse provides a measure of the strength of the forcing term $g(t)$. The intuitive idea is that we are considering a forcing that is very short in duration, but large enough in magnitude that it has a significant effect on $y(t)$, for example a hammer blow in a mechanical system.
+
 Taking $t_0$ for convenience, there are a few different options for modelling the impulse $g(t)$. They are listed below, and shown in \Cref{fig:impulsivefuncs}.
 \begin{itemize}
 	\item Top hat function: $g(t) = \begin{cases}\frac{1}{2\tau} & \text{if }-\tau \leq t \leq \tau \\ 0 & \text{otherwise}\end{cases}$.
-	\item $g(t) = \frac{\tau}{\pi(t^2+\tau^2)}$
-	\item Gaussian: $g(t) = \frac{1}{\sqrt{2\pi\tau^2}}e^{-t^2/2\tau^2}$.
+	\item $g(t) = \dfrac{\tau}{\pi(t^2+\tau^2)}$
+	\item Gaussian: $g(t) = \dfrac{1}{\sqrt{2\pi\tau^2}}e^{-t^2/2\tau^2}$.
 \end{itemize}
 
 \begin{figure}[!ht]
@@ -500,7 +562,7 @@ This is of course the same result - this direction of calculation is much faster
 
 The convolution of two functions $f(t)$ and $g(t)$ is given by:
 \begin{equation}
-	(f * g)(t) = \int_0^t f(\tau)g(t - \tau) \,d\tau.
+	(f * g)(t) = \int_0^t f(\tau)g(t - \tau) \,d\tau = \int_0^t f(t - \tau)g(\tau) \,d\tau.
 \end{equation}
 
 Properties of Convolution:
@@ -584,11 +646,7 @@ This theorem is useful for inverting Laplace transforms, since
 
 We can also use the Convolution theorem to find a general procedure for solving second-order ODEs. Consider the second-order ODE
 \[
-ay'' + by' + cy = f(t)
-\]
-with initial conditions 
-\[
-y(0) = y_0, y'(0) = y_0'.
+	ay'' + by' + cy = f(t) \quad\text{with}\quad y(0) = y_0, \,\, y'(0) = y_0'.
 \]
 Applying the Laplace transform, we have
 \begin{align*}
@@ -668,33 +726,72 @@ We can use convolutions to solve integral equations; that is, equations in which
 \end{eg}
 
 \begin{eg}
-	Show that 
+	Show that
 	\[
-	\phi(t) = \int_0^t dt_1 \int_0^{t_1} dt_2 \int_0^{t_{n-1}} f(t) dt = \int_0^t \frac{(t-\tau)^{n-1}}{(n-1)!} f(\tau)\,d\tau.
+		\phi(t) = \int_0^t \int_0^{t_1} \cdots \int_0^{t_{n-1}} f(t) dt_1 dt_2 \cdots dt_n = \int_0^t \frac{(t-\tau)^{n-1}}{(n-1)!} f(\tau)\,d\tau.
 	\]
-\end{eg}
-\begin{proof}
-	Note: 
+	First, notice that
 	\[
-	\Lapb{\int_0^t f(\tau)\,d\tau} = \frac{F(s)}{s},
-	\]
-	because 
-	\[
-	\Lapb{\int_0^t f(\tau)\,d\tau} = \Lap{f*1} = \Lap{f}\Lap{1} = \frac{F(s)}{s}.
+		\Lapb{\int_0^t f(\tau)\,d\tau} = \Lapb{\int_0^t f(\tau) u_0(t-\tau) \,d\tau} =  \Lap{f*u_0} = \Lap{f}\Lap{u_0} = \frac{F(s)}{s}.
 	\]
 	Applying this property recursively, we find that
 	\[
-	\Lap{\phi} = \frac{F(s)}{s^n}.
+		\Lap{\phi} = \frac{F(s)}{s^n}.
 	\]
 	Then
 	\[
-	\Lapinvb{\frac{1}{s^n}} = \frac{t^{n-1}}{(n-1)!} \quad\text{since}\quad \Lap{t^n} = \frac{n!}{s^{n+1}}.
+		\Lapinvb{\frac{1}{s^n}} = \frac{t^{n-1}}{(n-1)!} \quad\text{since}\quad \Lap{t^n} = \frac{n!}{s^{n+1}}.
 	\]
-	Therefore, by the Convolution theorem, 
+	Therefore, by the Convolution theorem,
 	\[
-	\phi(t) = \int_0^t \frac{(t-\tau)^{n-1}}{(n-1)!} f(\tau)\,d\tau.
+		\Lap{\phi} = \Lapb{\frac{t^{n-1}}{(n-1)!}}\Lap{f(t)} = \Lapb{\int_0^t \frac{(t-\tau)^{n-1}}{(n-1)!} f(\tau)\,d\tau},
 	\]
-\end{proof}
+	and taking the inverse Laplace transform yields
+	\[
+		\phi(t) = \int_0^t \frac{(t-\tau)^{n-1}}{(n-1)!} f(\tau)\,d\tau.
+	\]
+\end{eg}
+
+The Laplace transform can also be used to solve linear systems of ODEs.
+
+\begin{eg}
+	Solve the system of initial value problems
+	\begin{align*}
+		x'(t) - 2y(t) &= 4t, \quad x(0)=4 \\
+		y'(t) + 2y(t) - 4x(t) &= -4t-2, \quad y(0)=-5
+	\end{align*}
+	Taking the Laplace transforms of both ODEs yields
+	\begin{align*}
+		sX(x) - 4 - 2Y(s) &= \frac{4}{s^2} \\
+		sY(s) + 5 + 2Y(s) - 4X(s) &= -\frac{4}{s^2} - \frac{2}{s},
+	\end{align*}
+	where $X(s) = \Lap{x(t)}$ and $Y(s) = \Lap{y(t)}$.
+	
+	Solving the pair of transformed ODEs for $X(s)$, we find
+	\[
+		(s(s+2)-8)X(s) = \frac{(s+2)(4s^2+4)}{s^2} - \frac{10s^2+4s+8}{s^2},
+	\]
+	which simplifies to
+	\[
+		X(s) = \frac{4s-2}{(s+4)(s+2)} - \frac{3}{s+4} + \frac{1}{s-2}.
+	\]
+	Applying the inverse Laplace transform yields
+	\[
+		x(t) = 3e^{-4t} + e^{2t}.
+	\]
+	Then, rearranging the first ODE yields
+	\[
+		y(t) = \frac12 x'(t) - 2t = -6e^{-4t} + e^{2t} - 2t.
+	\]
+\end{eg}
+
+\begin{exercise}
+	The system of initial value problems in the above example can be written in matrix form as
+	\[
+		\xtp = \mat{0 & 2 \\ 4 & -2}\xt + \mat{4t \\ -4t - 2}, \quad \vbx(0) = \mat{4 \\ -5}.
+	\]
+	Using the methods of \Cref{sec:firstorder}, solve this system and confirm that the result is equivalent to the solution obtained using the Laplace transform.
+\end{exercise}
 
 \pagebreak
 \subsection{Table of Elementary Transforms}\label{sec:laptable}

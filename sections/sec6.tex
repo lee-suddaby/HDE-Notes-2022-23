@@ -216,7 +216,7 @@ What we can do is impose the condition $\langle \phi_n, \phi_n \rangle = 1$ to m
 Eigenfunctions of Sturm-Liouville provide a complete basis in which to expand functions. We use this to solve some inhomogeneous boundary-value problems and some PDEs.
 Sturm-Liouville problems are eigenvalue problems where 
 \begin{equation}\label{eq6.2.1}
-	L[\phi_n] = \lambda_n r(x) \phi
+	L[\phi_n] = \lambda_n r(x) \phi_n
 \end{equation}
 \[
 L[u] = -(pu')' + qu
@@ -224,15 +224,14 @@ L[u] = -(pu')' + qu
 
 Note that $L[u]$ in the above equation is called the Sturm-Liouville Operator.
 
-If we look at the boundary conditions for \Cref{eq6.2.1}, they must satisfy the Lagrange identity, i.e., if we have two functions $u, v$ which satisfy the same boundary conditions as $\phi_n$, then the inner products
+If we look at the boundary conditions for \Cref{eq6.2.1}, they must satisfy the Lagrange identity, i.e., if we have two functions $u, v$ which satisfy the same boundary conditions as $\phi_n$, then
 \[
-(Lu, v) = (u, Lv)
+	(Lu, v) = (u, Lv).
 \]
-The inner product:
-\begin{align*}
-	\langle \phi_m, \phi_n\rangle &= (\phi_m, r(x)\phi_n) \\
-	&= \int_0^1 \phi_m(x) \phi_n(x) r(x) \,dx = \delta_{mn} = \begin{cases} 0 & \text{if } m \neq n \\ 1 & \text{if } m = n \end{cases}
-\end{align*}
+The other inner product is also useful:
+\[
+	\langle \phi_m, \phi_n\rangle = (\phi_m, r\phi_n) = \int_0^1 \phi_m(x) \phi_n(x) r(x) \,dx = \delta_{mn} = \begin{cases} 0 & \text{if } m \neq n \\ 1 & \text{if } m = n \end{cases}
+\]
 
 \subsubsection{Expanding Functions}\label{sec:slexpand}
 
@@ -253,7 +252,7 @@ is essentially a generalisation of the Euler-Fourier formulas, which gave the ex
 \begin{eg}\label{eg:slexpand}
 	Expand the function $f(x) = x$ in the interval $0<x<1$ using the orthonormal set from \Cref{eg:sl1}:
 	\[
-		f(x) = x = \sum_{n=1}^{\infty} c_n \quad\text{with}\quad \phi_n = k_n \sin(\sqrt{\lambda_n} x).
+		f(x) = x = \sum_{n=1}^{\infty} c_n \phi_n \quad\text{with}\quad \phi_n = k_n \sin(\sqrt{\lambda_n} x).
 	\]
 	Using orthonormality, the unknown coefficients are fixed by
 	\begin{align*}
@@ -332,7 +331,7 @@ Substitution into the non-homogeneous ODE from \Cref{eq6.2.2} yields
 \end{align*}
 Expanding the RHS in the same basis, as in \Cref{sec:slexpand}:
 \[
-	\frac{f(x)}{r(x)} = \sum_{n=1}^{\infty} c_n \phi_n(x) \quad\text{with}\quad c_n = \left\langle \frac{f}{r}, \phi_n \right\rangle = \int_0^1 r(x) \frac{f(x)}{r(x)} \phi_n(x) \,dx,
+	\frac{f(x)}{r(x)} = \sum_{n=1}^{\infty} c_n \phi_n(x) \quad\text{with}\quad c_n = \left\langle \frac{f}{r}, \phi_n \right\rangle = \int_0^1 r(x) \frac{f(x)}{r(x)} \phi_n(x) \,dx = (f, \phi_n),
 \]
 then the non-homogeneous ODE yields
 \[
