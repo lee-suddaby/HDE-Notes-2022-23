@@ -507,14 +507,15 @@ In order for the terms $\mu(x)y'' + \mu(x)\frac{a_1(x)}{a_2(x)}y'$ to be written
 This is solved as a separable first-order differential equation:
 \begin{align*}
 	\mu'(x) = \frac{d\mu}{dx} &= \mu(x)\frac{a_1(x)}{a_2(x)} \\
-	\frac{d\mu}{\mu} &= \frac{a_1(x)}{a_2(x)} dx \\ \ln\mu &= \int \frac{a_1(x)}{a_2(x)} dx \\
-	\mu(x) &= \exp\left(\int \frac{a_1(x)}{a_2(x)} \,dx\right).
+	\frac{d\mu}{\mu} &= \frac{a_1(x)}{a_2(x)} dx \\ 
+	\ln\mu &= \int_{x_0}^x \frac{a_1(s)}{a_2(s)} \,ds \\
+	\mu(x) &= \exp\left(\int_{x_0}^x \frac{a_1(s)}{a_2(s)} \,ds\right).
 \end{align*}
 In other words, multiplying through by this factor $\mu(x)$ and dividing by $a_2(x)$ converts the ODE into the desired form.\footnote{Though it might be required to put multiply the entire equation by $(-1)$ if we want $-(p(x)y')'$ instead of $(p(x)y')'$.}
 
-So, in summary, and ODE of the form in \Cref{eq:sltransform} can be transformed into the Sturm-Liouville form in \Cref{eq:sltransform2}, where
+So, in summary, any ODE of the form in \Cref{eq:sltransform} can be transformed into the Sturm-Liouville form in \Cref{eq:sltransform2}, where
 \begin{align*}
-	p(x) &= -\exp\left(\int \frac{a_1(x)}{a_2(x)} \,dx\right) \\
+	p(x) &= -\exp\left(\int_{x_0}^x \frac{a_1(s)}{a_2(s)} \,ds\right) \\
 	q(x) &= -p(x)\frac{a_0(x)}{a_2(x)} \\
 	r(x) &= -p(x)\frac{f(x)}{a_2(x)}.
 \end{align*}
@@ -547,7 +548,8 @@ Recall that the general Sturm-Liouville Problems are given by
 \]
 where it is assumed that $p$ is differentiable, $q$ and $r$ are continuous, and $p(x)>0$, $r(x)>0$ at all points in the closed interval $[0,1]$.
 
-But for some problems of physical interest these conditions are satisfied only for the open interval $(0,1)$. Sturm–Liouville problems for which the conditions on $p$, $q$ and $r$ are satisfied on $0 < x < 1$ but are not satisfied at $x = 0$ and/or $x = 1$ are called \textbf{singular}.
+But for some problems of physical interest these conditions are satisfied only for the open interval $(0,1)$. Sturm–Liouville problems for which the conditions on $p$, $q$ and $r$ are satisfied on $0 < x < 1$ but are not satisfied at $x = 0$ and/or $x = 1$ are called \textbf{singular}.
+
 
 \begin{eg}[Bessel's equation of order $m$]\label{eg:bessel}
 	\[

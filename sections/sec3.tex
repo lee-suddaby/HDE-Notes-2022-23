@@ -166,15 +166,15 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 		\label{fig:trajectory2}
 	\end{figure}
 	
-	\item Case 2: Complex Eigenvalues of the form $r = \lambda \pm i \mu$
+	\item Case 2: Complex Eigenvalues of the form $r = \lambda \pm i \mu$ ($\mu>0$):
 	
-	These systems can be given by:
+	A system with these eigenvalues can be transformed into the system:
 	\begin{equation}\label{3.6}
-		\xtp = \mat{ \lambda & \mu \\ -\mu & \lambda} \vbx
+		\xtp = \mat{ \lambda & \mu \\ -\mu & \lambda} \xt
 	\end{equation} 
-	and the solution to the ODE is given by:
+	and the solution to this system is given by:
 	\[
-	\xt = c_1 e^{\lambda t} \mat{\cos{\mu t} \\ -\sin{\mu t}} + c_2 e^{\lambda t} \mat{\sin{\mu t} \\ \cos{\mu t}} 
+		\xt = c_1 e^{\lambda t} \mat{\cos{\mu t} \\ -\sin{\mu t}} + c_2 e^{\lambda t} \mat{\sin{\mu t} \\ \cos{\mu t}} 
 	\]
 	as seen in \Cref{sec:complexeigs}. We now consider the following two subcases: 
 	\begin{enumerate}[label=(\roman*)]
@@ -200,27 +200,35 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 		\theta' = -\mu
 		\]
 		As $t \to \infty$, $r \to 0$ if $\lambda<0$ and $r \to \infty$ if $\lambda>0$. 
-		The critical point in this case is a \vb{spiral sink} (\vb{stable focus}) when $\lambda<0$ and \vb{spiral source} (\vb{unstable focus}) when $\lambda>0$ (see \Cref{fig:trajectory5}). Since $\theta' = -\mu$, if $\mu>0$ then $\theta$ decreases as $t$ evolves and the motion is clockwise; if $\mu<0$ the trajectories are traversed anticlockwise.
+		The critical point in this case is a \vb{spiral sink} (\vb{stable focus}) when $\lambda<0$ and \vb{spiral source} (\vb{unstable focus}) when $\lambda>0$ (see \Cref{fig:trajectory5}). 
+		% Since $\theta' = -\mu$, if $\mu>0$ then $\theta$ decreases as $t$ evolves and the motion is clockwise; if $\mu<0$ the trajectories are traversed anticlockwise.
 		
 		\item $\lambda = 0$: \\
 		With the equations in subcase (i) holding, we now have that $r'=0 \implies r$ is constant so the trajectories are circles in the transformed coordinates. It can be shown that the trajectories are ellipses in the original coordinates, so the critical point in this case is a \vb{centre}, as in \Cref{fig:trajectory6}.
 	\end{enumerate}
+
+	To determine whether motion is clockwise or anticlockwise, we must look to the original linear system,
+	\[
+		\xtp = \mat{a & b \\ c & d}\xt.
+	\]
+	If $b-c>0$, the motion is clockwise; if $b-c<0$, the motion is anticlockwise.
 	
-	\begin{figure}[H]
+	\begin{figure}[h!]
 		\centering
 		\includegraphics[width=0.8\textwidth]{Trajectories/5.pdf}
 		\caption{Trajectories in the phase plane for a linear system with eigenvalues $\lambda \pm i\mu$, where the origin is (a) a spiral sink with $\lambda <0$ and (b) a spiral source with $\lambda >0$ \cite[Figure 9.1.5]{boyce}.}
 		\label{fig:trajectory5}
 	\end{figure}
 	
-	\begin{figure}[H]
+	\begin{figure}[h!]
 		\centering
 		\includegraphics[width=0.5\textwidth]{Trajectories/6.pdf}
 		\caption{Trajectories in the phase plane for a linear system with eigenvalues $\pm i\mu$, where the origin is a centre \cite[Figure 9.1.6(a)]{boyce}.}
 		\label{fig:trajectory6}
 	\end{figure}
 	
-	\item Case 3: Real and Equal Eigenvalues $r_1 = r_2 = r < 0$\\
+	\item Case 3: Real and Equal Eigenvalues $r_1 = r_2 = r < 0$:
+	
 	For cases with repeated eigenvalues, recall that as seen in \Cref{sec:repeatedeigs}, we can either have 2 or 1 linearly independent eigenvectors associated with $r$ depending on the geometric multiplicities of the eigenvalues. We consider the following two subcases:
 	\begin{enumerate}[label=(\roman*)]
 		\item Two linearly independent eigenvectors: \\ 
@@ -236,18 +244,20 @@ Using these eigenvalues, we can predict the behaviour of the ODEs near critical 
 		\xt = c_1 e^{rt} \xib + c_2 e^{rt} (\xib t + \etab)
 		\]
 		Since $r<0$, the trajectories approach the critical point. As $t \to \infty$, the trajectory is dominated by $\xib$ (if $c_2 \neq 0$, the $c_2 te^{rt} \xib$ term dominates; if $c_2 = 0$ then $c_1 e^{rt} \xib$ dominates) so approaches the origin tangent to the line through this eigenvector. The critical point in this case is an \vb{improper node}, or \vb{degenerate node} (see \Cref{fig:trajectory4}).
+		
+		As in the case for complex eigenvalues, if $b-c>0$, the motion is clockwise; if $b-c<0$, the motion is anticlockwise.\footnote{If $b-c=0$, the critical point cannot be a spiral, centre, or improper node.}
 	\end{enumerate}
 	If instead the eigenvalues are positive, $r_1 = r_2 = r > 0$, the trajectories are similar but the direction of motion is reversed.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Trajectories/3.pdf}
 	\caption{Trajectories in the phase plane when the origin is a proper node with $r_1 = r_2 < 0$ \cite[Figure 9.1.3(a)]{boyce}.}
 	\label{fig:trajectory3}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Trajectories/4.pdf}
 	\caption{Trajectories in the phase plane when the origin is (a) an improper node with eigenvalues $r_1 = r_2 < 0$ and one independent eigenvector $\xib$, and (b) the same but with a different generalised eigenvector $\etab$ \cite[Figure 9.1.4]{boyce}.}
@@ -428,7 +438,7 @@ It is tempting to make conclusions on the stability of the non-linear system bas
 	\]
 	so $r_+>0$ and $r_-<0$. Thus this is a saddle point.
 	
-	Finally, we find the eigenvectors associated with these eigenvalues as $\mat{1\\r_+}$ and $\mat{1\\r_-}$. The general solution is therefore
+	Finally, we find the eigenvectors associated with these eigenvalues as $\mat{1\\r_+}$ and $\mat{1\\r_-}$. Therefore, the general solution is
 	\[
 	\mat{u\\v} = c_1e^{r_+t}\mat{1\\r_+} + c_2e^{r_-t}\mat{1\\r_-}.
 	\]
@@ -708,7 +718,7 @@ Thus, we are now ready to state the formal definitions and methods relating to t
 	Suppose there exists $E(x,y)$ such that $E(0,0)=0$, and in every neighbourhood of the origin there is at least one point where $E$ is positive (negative). If there exists a domain $D$ containing the origin such that $\frac{dE}{dt}$ is positive definite (negative definite) on $D$, then the origin is an unstable critical point.
 \end{theorem}
 
-With the Lyapunov methods, we can see that, once we have a valid Lyapunov function $E$, it is not difficult to show that the conditions of Theorems \ref{thrm:lyapunov1} or \ref{thrm:lyapunov2} hold and therefore make conclusions on the stability/instability of the critical point. The difficult part of this process is therefore finding the Lyapunov function $E$ in the first place.
+With the Lyapunov methods, we can see that, once we have a valid Lyapunov function $E$, it is not difficult to show that the conditions of Theorems \ref{thrm:lyapunov1} or \ref{thrm:lyapunov2} hold and therefore make conclusions on the stability/instability of the critical point. The difficult part of this process is finding the Lyapunov function $E$ in the first place.
 
 To illustrate the application of these theorems, we consider the following examples.
 
