@@ -131,9 +131,9 @@ It is important to check that the infinite sum in \Cref{eq:heateqsol} converges.
 	Since $L=1$,\footnote{This derivation is done in more detail in \Cref{eg:laplacerect}.}
 	\begin{align*}
 		c_n &= 2 \int_0^1 f(x) \sin(n\pi x) \,dx \\
-		&= 2 \int_0^{1/2} x \sin(n\pi x) \,dx + 2 \int_{1/2}^1 (1-x) \sin(n\pi x) \,dx \\
-		&= \frac{4}{(n \pi)^2} \sin \left(\frac{n \pi}{2}\right) \\
-		&= \begin{cases}0 & \text{if } n = 2k \\ \dfrac{4}{((2k+1)\pi)^2} (-1)^k & \text{if } n = 2k+1\end{cases}.
+		&= 4 \int_0^{1/2} x \sin(n\pi x) \,dx + 4 \int_{1/2}^1 (1-x) \sin(n\pi x) \,dx \\
+		&= \frac{8}{(n \pi)^2} \sin \left(\frac{n \pi}{2}\right) \\
+		&= \begin{cases}0 & \text{if } n = 2k \\ \dfrac{8}{((2k+1)\pi)^2} (-1)^k & \text{if } n = 2k+1\end{cases}.
 	\end{align*}
 	Thus the solution is given by, 
 	\[
@@ -334,7 +334,7 @@ Now considering the initial conditions:
 \begin{align}
 	u(x,0) & = f(x) \nonumber \\
 	f(x) & = \frac{c_0}{2} + \sum_{n=1}^{\infty} c_n \cos{\left(\frac{n \pi x}{L} \right)} \nonumber \\
-	\implies c_n & = \frac{2}{L} \int_0^L f(x) \cos{\left(\frac{n \pi x}{L} \right)} dx,
+	\implies c_n &= \frac{2}{L} \int_0^L f(x) \cos{\left(\frac{n \pi x}{L} \right)} dx,
 \end{align}
 since this is nothing but the Fourier series for an even function.
 
